@@ -1,0 +1,12 @@
+<!-- Graphic -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="547">
+  <g>
+    <defs>
+      <linearGradient id="idF2rpsPqfQg-1324061829" gradientTransform="rotate(0, 0.5, 0.5)">
+        <stop offset="0" stop-color="hsl(169, 74%, 65%)" stop-opacity="1"></stop>
+        <stop offset="1" stop-color="hsl(278, 71%, 61%)" stop-opacity="1"></stop>
+      </linearGradient>
+    </defs>
+    <path d="M 0 0 L 1024 0 L 1024 547 C 1024 547 768 489.5 512 489.5 C 256 489.5 0 547 0 547 Z" fill="url(#idF2rpsPqfQg-1324061829)"></path>
+  </g>
+</svg>
