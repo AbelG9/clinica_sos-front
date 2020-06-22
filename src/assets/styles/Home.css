@@ -1,9 +1,10 @@
-.btn-custom-right{
-    margin-top: 8%;
+.image-svg{
+    position: fixed;
+    right: 10rem;
+    top: 10rem;
 }
-
-.title-custom-form {
-    margin-bottom: 10%;
+.stepper-position {
+    /*margin-top: 25%;*/
 }
 
 /* // Extra small devices (portrait phones, less than 576px) */
@@ -23,10 +24,11 @@
 
 /* // Large devices (desktops, 992px and up) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
-
 }
 
 /* // Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-
+    .image-svg{
+        right: 20rem;
+    }
 }
