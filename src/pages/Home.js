@@ -9,20 +9,44 @@ import '../assets/styles/Home.css'
 import 'bs-stepper/dist/css/bs-stepper.min.css';
 import OptionQuestion from "../components/OptionQuestion";
 import StepperComponent from "../components/StepperComponent";
+import Axios from 'axios';
+import url from "../config";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
 
 const Home = () => {
-  const [dataDni, setDataDni] = useState();
+  const [dataDni, setDataDni] = useState('');
   const [page, setPage] = useState(0);
   const [subPage, setSubPage] = useState(1);
+
+    const checkPatient = async (dataDni) => {
+        let res = await Axios.post(`${url}/api/getPatient`, {dataDni});
+        let response = await res.data;
+        console.log(response);
+        if (response > 0) {
+            setPage(1);
+        } else {
+            setPage(2);
+        }
+    }
 
   const handleChange = (e) => {
     setDataDni(e.target.value)
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(dataDni)
-    setPage(1)
+    e.preventDefault();
+    if (dataDni.length < 8 || dataDni.length >8) {
+        MySwal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ingrese un DNI valido!',
+        })
+    } else {
+        checkPatient(dataDni);
+    }
   }
 
   const renderSwitch = (param) => {
@@ -90,7 +114,6 @@ const Home = () => {
               padding: '25px',
               height: '100vh'
             }}>
-              {/* <div className="container h-100 d-flex flex-column justify-content-center align-items-end border"> */}
               <div className="container h-100 d-flex flex-column justify-content-center align-items-end">
                 <FormYesNo
                     dataDni={dataDni}
@@ -141,6 +164,12 @@ const Home = () => {
             </div>
           </div>
       );
+      case 2:
+          return (
+              <div>
+                  registro
+              </div>
+          );
     default:
       break
   }
