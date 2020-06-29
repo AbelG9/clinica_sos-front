@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Background from "../assets/img/background.svg";
-import Doctor from "../assets/img/doctor.svg";
-import Doctora from "../assets/img/doctora.svg";
 import Doctor2 from "../assets/img/2-doctors.svg";
 import DoctorTesting from "../assets/img/doctor-testing.svg";
 import DoctorPaciente from "../assets/img/doctor-paciente.svg";
@@ -10,6 +8,9 @@ import FormYesNo from "../components/FormYesNo";
 import Logo from "../assets/img/logo.svg";
 import "../assets/styles/Home.css";
 import "bs-stepper/dist/css/bs-stepper.min.css";
+import RegisterData from './Register';
+import '../assets/styles/Home.css';
+import 'bs-stepper/dist/css/bs-stepper.min.css';
 import OptionQuestion from "../components/OptionQuestion";
 import StepperComponent from "../components/StepperComponent";
 import Axios from "axios";
@@ -17,14 +18,15 @@ import url from "../config";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ToggleSwitch from "../components/ToggleSwitch";
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, FormGroup, Label, Input } from 'reactstrap';
+import URL from '../URL'
 
 const MySwal = withReactContent(Swal);
 
 const Home = () => {
   const [dataDni, setDataDni] = useState("");
-  const [page, setPage] = useState(1);
-  const [subPage, setSubPage] = useState(3);
+  const [page, setPage] = useState(0);
+  const [subPage, setSubPage] = useState(1);
   const [stateOption, setStateOption] = useState({
     option1: "no",
     option2: "no",
@@ -46,15 +48,25 @@ const Home = () => {
   };
 
   const checkPatient = async (dataDni) => {
-    let res = await Axios.post(`${url}/api/getPatient`, { dataDni });
-    let response = await res.data;
-    console.log(response);
-    if (response > 0) {
-      setPage(1);
-    } else {
-      setPage(2);
+    try {
+      let resreniec = await Axios.get(`${URL.url}${dataDni}${URL.token}`);
+      let datareniec = await resreniec.data;
+        let res = await Axios.post(`${url}api/getPatient`, {dataDni});
+        let response = await res.data;
+        if (response > 0) {
+          setPage(1);
+        } else {
+          setPage(2);
+        }
+    } catch (error) {
+      console.error(error);
+      MySwal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ingrese un DNI valido!',
+    })
     }
-  };
+  }
 
   const handleChange = (e) => {
     setDataDni(e.target.value);
@@ -255,7 +267,16 @@ const Home = () => {
           </form>
         );
       default:
-        return <OptionQuestion question="FIN!" />;
+        return(
+          <FormGroup tag="fieldset">
+            <div className="title-custom-form">
+                <h2 className="text-black text-right">El triaje ha terminado</h2>
+            </div>
+            <div className="d-flex justify-content-end">
+                <Button color="secondary" className="btn-lg" href="/">Salir</Button>
+            </div>
+          </FormGroup>
+        );
     }
   };
 
@@ -319,8 +340,13 @@ const Home = () => {
           <div className="background-question"></div>
         </div>
       );
-    case 2:
-      return <div>registro</div>;
+      case 2:
+          return (
+            <RegisterData 
+              setPage={setPage} //jalas la variable de Home al componente Register
+              dataDni={dataDni}
+            />
+          );
     default:
       break;
   }

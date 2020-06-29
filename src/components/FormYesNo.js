@@ -16,7 +16,7 @@ const FormYesNo = ({ onSubmit, onChange, dataDni }) => {
             </FormGroup>
           </FormGroup>
           <div className="btn-custom-right">
-            <Button color="info">Siguiente</Button>
+            <Button color="info" className="btn-lg">Siguiente</Button>
           </div>
         </form>
       </Fragment>
