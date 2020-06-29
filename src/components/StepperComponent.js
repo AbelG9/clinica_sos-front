@@ -10,9 +10,9 @@ const StepperComponent = ({setSubPage, subPage}) => {
             {
                 [1, 2, 3].map((number, index) => {
                     return (
-                        <Fragment>
-                            <div key={index} className={`step ${subPage === number ? 'active' : ''}`}>
-                                <button className="step-trigger" onClick={() => setSubPage(number)}>
+                        <Fragment key={index}>
+                            <div className={`step ${subPage === number ? 'active' : ''}`}>
+                                <button  className="step-trigger" onClick={() => setSubPage(number)}>
                                     <span className="bs-stepper-circle">{number}</span>
                                 </button>
                             </div>

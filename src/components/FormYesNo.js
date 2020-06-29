@@ -5,14 +5,14 @@ import '../assets/styles/FormYesNo.css'
 const FormYesNo = ({ onSubmit, onChange, dataDni }) => {
   return (
       <Fragment>
-        <form onSubmit={onSubmit} className="d-flex flex-column align-items-end mr-5">
+        <form onSubmit={onSubmit} className="d-flex flex-column align-items-end mr-3">
           <FormGroup className="text-white" tag="fieldset">
             <div className="title-custom-form">
               <h2 className="text-white text-right">Antes de empezar,</h2>
-              <h2 className="text-white text-right">verifica que no sea una emergencia</h2>
+              <h2 className="text-white text-right">ingrese su DNI</h2>
             </div>
             <FormGroup className="d-flex flex-column align-items-end">
-              <Input type="number" onChange={onChange} value={dataDni} name="dninumber" placeholder="Ingrese su DNI" style={{width: '50%'}} />
+              <Input className=" text-right" type="number" onChange={onChange} value={dataDni} name="dninumber" placeholder="Ingrese su DNI" />
             </FormGroup>
           </FormGroup>
           <div className="btn-custom-right">

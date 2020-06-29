@@ -1,34 +1,168 @@
-.image-svg{
+.background-question {
+    background-image: url("../img/background2.svg");
+    background-repeat: no-repeat;
+    background-size: 75% 75%;
+    background-position-x: right;
+    background-position-y: bottom;
     position: fixed;
-    right: 10rem;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.spacing {
+    height: 75%;
+}
+
+.doctor-svg{
+    position: absolute;
+    right: 15rem;
     top: 10rem;
 }
-.stepper-position {
-    /*margin-top: 25%;*/
+
+.Image-Preset {
+    position: fixed;
+    left: 20rem;
+    bottom: 5rem;
+}
+
+.Doctor-Image-preset {
+    width: 300px;
 }
 
 /* // Extra small devices (portrait phones, less than 576px) */
-@media (max-width: 575.98px) {
+@media (max-width: 374px) {
+    .Image-Preset {
+        display: none;
+    }
 
+    .doctor-svg{
+        display: none;
+    }
+
+    .background-question {
+        background-size: 75% 50%;
+    }
+    .spacing {
+        height: auto;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 575.98px) {
+    .Image-Preset {
+        left: 1rem;
+        bottom: 1rem;
+    }
+
+    .Doctor-Image-preset {
+        width: 200px;
+    }
+
+    .doctor-svg{
+        display: none;
+    }
+
+    .background-question {
+        background-size: 75% 70%;
+    }
+
+    .spacing {
+        height: auto;
+    }
 }
 
 /* // Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
+    .Image-Preset {
+        left: 2rem;
+        bottom: 1rem;
+    }
 
+    .Doctor-Image-preset {
+        width: 250px;
+    }
+
+    .doctor-svg{
+        display: none;
+    }
+
+    .background-question {
+        background-size: 75% 70%;
+    }
 }
 
 /* // Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
+    .Image-Preset {
+        left: 4rem;
+        bottom: 1rem;
+    }
 
+    .Doctor-Image-preset {
+        width: 300px;
+    }
+
+    .doctor-svg{
+        position: absolute;
+        right: 4rem;
+        top: 10rem;
+    }
+
+    .doctor-svg img{
+        width: 150px;
+    }
+
+    .background-question {
+        background-size: 75% 70%;
+    }
 }
 
 /* // Large devices (desktops, 992px and up) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
+    .Image-Preset {
+        left: 10rem;
+        bottom: 5rem;
+    }
+
+    .Doctor-Image-preset {
+        width: 300px;
+    }
+
+    .doctor-svg{
+        position: absolute;
+        right: 12rem;
+        top: 10rem;
+    }
+
+    .doctor-svg img{
+        width: 200px;
+    }
+
+    .background-question {
+        background-size: 75% 75%;
+    }
+
 }
 
 /* // Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
     .image-svg{
         right: 20rem;
+    }
+
+    .Doctor-Image-preset {
+        width: 350px;
+    }
+
+    .doctor-svg{
+        position: absolute;
+        right: 15rem;
+        top: 13rem;
+    }
+
+    .doctor-svg img{
+        width: 200px;
     }
 }
