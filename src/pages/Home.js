@@ -4,6 +4,7 @@ import Doctor2 from "../assets/img/2-doctors.svg";
 import DoctorTesting from "../assets/img/doctor-testing.svg";
 import DoctorPaciente from "../assets/img/doctor-paciente.svg";
 import DoctorPresent from "../assets/img/doctor-present.svg";
+import DoctorResult from "../assets/img/doctor-result.svg";
 import FormYesNo from "../components/FormYesNo";
 import Logo from "../assets/img/logo.svg";
 import "../assets/styles/Home.css";
@@ -90,7 +91,7 @@ const Home = () => {
       case 1:
         return (
           <img
-            src={Doctor2}
+            src={DoctorTesting}
             alt="Fairdent"
             width="200"
           />
@@ -98,7 +99,7 @@ const Home = () => {
       case 2:
         return (
           <img
-            src={DoctorTesting}
+            src={Doctor2}
             alt="Fairdent"
             width="200"
           />
@@ -106,13 +107,19 @@ const Home = () => {
       case 3:
         return (
           <img
-            src={DoctorPaciente}
+            src={DoctorResult}
             alt="Fairdent"
             width="200"
           />
         )
       default:
-        break;
+        return (
+          <img
+            src={DoctorPaciente}
+            alt="Fairdent"
+            width="200"
+          />
+        )
     }
   }
 
@@ -316,7 +323,9 @@ const Home = () => {
       return (
         <div className="container-fluid p-5" style={{ height: "100vh" }}>
           <div className="row">
-            <img src={Logo} alt="Fairdent" width="200" />
+            <a href="/" className="ml-5">
+              <img src={Logo} alt="Fairdent" width="200" />
+            </a>
           </div>
           <div className="doctor-svg">
             {
@@ -340,7 +349,7 @@ const Home = () => {
           <div className="background-question"></div>
         </div>
       );
-      case 2:
+    case 2:
           return (
             <RegisterData 
               setPage={setPage} //jalas la variable de Home al componente Register
