@@ -8,15 +8,27 @@ const FormYesNo = ({ onSubmit, onChange, dataDni }) => {
         <form onSubmit={onSubmit} className="d-flex flex-column align-items-end mr-5">
           <FormGroup className="text-white" tag="fieldset">
             <div className="title-custom-form">
-              <h2 className="text-white text-right">Antes de empezar,</h2>
-              <h2 className="text-white text-right">verifica que no sea una emergencia</h2>
+              <h1 className="text-white text-right">Antes de empezar,</h1>
+              <h1 className="text-white text-right">ingrese su DNI</h1>
             </div>
-            <FormGroup className="d-flex flex-column align-items-end">
-              <Input type="number" onChange={onChange} value={dataDni} name="dninumber" placeholder="Ingrese su DNI" style={{width: '50%'}} />
+            {/* <FormGroup check className="d-flex flex-column align-items-end">
+              <Label check>
+                <Input type="radio" name="radio1" checked/>
+                NO
+              </Label>
+            </FormGroup>
+            <FormGroup check className="d-flex flex-column align-items-end">
+              <Label check>
+                <Input type="radio" name="radio1" />
+                SI &nbsp;
+              </Label>
+            </FormGroup> */}
+            <FormGroup className="mt-4 d-flex flex-column align-items-end">
+              <Input type="number" maxLength="8" onChange={onChange} value={dataDni} name="dninumber" placeholder="DNI" style={{width: '70%'}} />
             </FormGroup>
           </FormGroup>
           <div className="btn-custom-right">
-            <Button color="info">Siguiente</Button>
+            <Button color="info" className="btn-lg">Siguiente</Button>
           </div>
         </form>
       </Fragment>

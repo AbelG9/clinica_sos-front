@@ -1,35 +1,56 @@
 import React, {useState, Fragment} from 'react';
+import { Redirect } from 'react-router-dom';
+import RegisterData from './Register';
 import Background from '../assets/img/background.svg'
 import Background2 from '../assets/img/background2.svg'
 import Doctor from '../assets/img/doctor.svg'
 import Doctora from '../assets/img/doctora.svg'
 import FormYesNo from '../components/FormYesNo';
 import Logo from '../assets/img/logo.svg'
-import '../assets/styles/Home.css'
+import '../assets/styles/Home.css';
 import 'bs-stepper/dist/css/bs-stepper.min.css';
 import OptionQuestion from "../components/OptionQuestion";
+import TextQuestion from "../components/TextQuestion";
 import StepperComponent from "../components/StepperComponent";
 import Axios from 'axios';
 import url from "../config";
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content'
+import withReactContent from 'sweetalert2-react-content';
+import URL from '../URL'
 
 const MySwal = withReactContent(Swal)
 
 const Home = () => {
-  const [dataDni, setDataDni] = useState('');
-  const [page, setPage] = useState(0);
+  const [dataDni, setDataDni] = useState('');//cambiar dni por comillas simples
+  const [page, setPage] = useState(0);//cambiar page por 0
   const [subPage, setSubPage] = useState(1);
 
     const checkPatient = async (dataDni) => {
-        let res = await Axios.post(`${url}/api/getPatient`, {dataDni});
-        let response = await res.data;
-        console.log(response);
-        if (response > 0) {
+      try {
+        let resreniec = await Axios.get(`${URL.url}${dataDni}${URL.token}`);  //me avisas si funciona esto, no esToy tan seguro, pero debe ser asi con el metodo GET
+        let datareniec = await resreniec.data;
+        //console.log(datareniec);
+        //if (datareniec=!"") {
+          let res = await Axios.post(`${url}api/getPatient`, {dataDni});
+          let response = await res.data;
+          //console.log(response);
+          if (response > 0) {
             setPage(1);
-        } else {
+          } else {
             setPage(2);
-        }
+          }
+        //}
+      } catch (error) {
+        console.error(error);
+        MySwal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ingrese un DNI valido!',
+      })
+      }
+        
+        
+        
     }
 
   const handleChange = (e) => {
@@ -55,15 +76,18 @@ const Home = () => {
         return (
             <Fragment>
               <OptionQuestion
-                  question="1. ¿Tiene fiebre o la ha tenido en estos ultios 30 dias?"
+                  question="1. ¿Tiene fiebre o la ha tenido en estos ultimos 14 dias?"
+                  numquestion={1}
                   showButton={false}
               />
               <OptionQuestion
                   question="2. ¿Ha tenido problemas respiratorios en los ultimos 14 dias?"
+                  numquestion={2}
                   showButton={false}
               />
               <OptionQuestion
                   question="3. ¿Ha tenido dolor de garganta en los ultimos 14 dias?"
+                  numquestion={3}
                   showButton={true}
                   subPage={subPage}
                   setSubPage={setSubPage}
@@ -74,7 +98,18 @@ const Home = () => {
         return (
             <Fragment>
               <OptionQuestion
-                  question="1. ¿Tiene fiebre o la ha tenido en estos ultios 30 dias?"
+                  question="4. ¿Ha estado en contacto con alguna persona con los sintomas anteriores descritos o con cuadro respiratorio agudo?"
+                  numquestion={4}
+                  showButton={false}
+              />
+              <OptionQuestion
+                  question="5. ¿Ha estado en contacto con alguna persona con confirmacion de coronavirus?"
+                  numquestion={5}
+                  showButton={false}
+              />
+              <OptionQuestion
+                  question="6. ¿Ha pasado por pruebas de descarte de COVID-19?"
+                  numquestion={6}
                   showButton={true}
                   subPage={subPage}
                   setSubPage={setSubPage}
@@ -84,8 +119,14 @@ const Home = () => {
       case 3:
         return (
             <Fragment>
-              <OptionQuestion
-                  question="1. ¿Tiene fiebre o la ha tenido en estos ultios 30 dias?"
+              <TextQuestion
+                  question="7. ¿A que se dedica?"
+                  numquestion={7}
+                  showButton={false}
+              />
+              <TextQuestion
+                  question="8. Lugar de trabajo"
+                  numquestion={8}
                   showButton={true}
                   subPage={subPage}
                   setSubPage={setSubPage}
@@ -146,7 +187,7 @@ const Home = () => {
                   <img src={ subPage === 2 ? Doctora : Doctor } alt="Fairdent" width="200"/>
                 </div>
                 <div id="stepper1" className="bs-stepper h-75">
-                  <div className="h-100">
+                  <div className="h-100 w-50">
                     <div className="bs-stepper-content">
                       { renderSwitch(subPage) }
                     </div>
@@ -166,9 +207,10 @@ const Home = () => {
       );
       case 2:
           return (
-              <div>
-                  registro
-              </div>
+            <RegisterData 
+              setPage={setPage} //jalas la variable de Home al componente Register
+              dataDni={dataDni}
+            />
           );
     default:
       break
