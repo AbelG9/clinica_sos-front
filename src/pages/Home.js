@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import Background from "../assets/img/background.svg";
 import Doctor2 from "../assets/img/2-doctors.svg";
 import DoctorTesting from "../assets/img/doctor-testing.svg";
@@ -21,10 +21,12 @@ import withReactContent from "sweetalert2-react-content";
 import ToggleSwitch from "../components/ToggleSwitch";
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import URL from '../URL'
+import Loader from '../components/Loader'
 
 const MySwal = withReactContent(Swal);
 
 const Home = () => {
+  const [loading, setLoading] = useState(false);
   const [dataDni, setDataDni] = useState("");
   const [page, setPage] = useState(0);
   const [subPage, setSubPage] = useState(1);
@@ -51,6 +53,7 @@ const Home = () => {
 
   const checkPatient = async (dataDni) => {
     try {
+      setLoading(true);
       let resreniec = await Axios.get(`${URL.url}${dataDni}${URL.token}`);
       let datareniec = await resreniec.data;
         let res = await Axios.post(`${url}api/getPatient`, {dataDni});
@@ -63,10 +66,13 @@ const Home = () => {
             usuario: responseid,
           });
           setPage(1);
+          setLoading(false);
         } else {
+          setLoading(false);
           setPage(2);
         }
     } catch (error) {
+      setLoading(false);
       console.error(error);
       MySwal.fire({
         icon: 'error',
@@ -132,11 +138,13 @@ const Home = () => {
 
   const handleClickFin = async () => {
     if (stateOption.option7.length > 0 && stateOption.option8.length > 0) {
+      setLoading(true);
       let resq = await Axios.post(`${url}api/saveTriageHistory`, { stateOption });
       console.log("resquestions: ",resq);
       let respq = await resq.data;
       console.log("respuesta questions: ",respq);
       if (respq > 0) {
+        setLoading(false);
         MySwal.fire({
             icon: "success",
             title: "Exito!",
@@ -144,16 +152,21 @@ const Home = () => {
         }).then((result) => {
             if (result.value) {
               setSubPage(subPage + 1)
+            } else {
+              setSubPage(subPage + 1)
             }
-        });;
+        });
     } else {
+      setLoading(false);
         MySwal.fire({
             icon: "warning",
             title: "Error!",
             text: "No se pudo guardar!",
         }).then((result) => {
             if (result.value) {
-            //setPage(0);
+              setPage(0);
+            } else {
+              setPage(0);
             }
         });
     }
@@ -331,11 +344,16 @@ const Home = () => {
             }}
           >
             <div className="container h-100 d-flex flex-column justify-content-center align-items-end">
-              <FormYesNo
-                dataDni={dataDni}
-                onChange={handleChange}
-                onSubmit={handleSubmit}
-              />
+              {
+                loading ? <Loader /> 
+                : 
+                <FormYesNo
+                  dataDni={dataDni}
+                  onChange={handleChange}
+                  onSubmit={handleSubmit}
+                />
+              }
+              
               <div className="Image-Preset">
                 <img
                   className="Doctor-Image-preset"
@@ -363,20 +381,25 @@ const Home = () => {
               renderImage()
             }
           </div>
-          <div className="row spacing">
-            <div className="col-12 h-100">
-              <div className="container h-100">{renderSwitch(subPage)}</div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12">
-              <div className="bs-stepper">
-                {subPage > 3 ? null : (
-                  <StepperComponent setSubPage={setSubPage} subPage={subPage} />
-                )}
+          {
+            loading ? <Loader /> :
+            <Fragment>
+              <div className="row spacing">
+                <div className="col-12 h-100">
+                  <div className="container h-100">{renderSwitch(subPage)}</div>
+                </div>
               </div>
-            </div>
-          </div>
+              <div className="row">
+                <div className="col-12">
+                  <div className="bs-stepper">
+                    {subPage > 3 ? null : (
+                      <StepperComponent setSubPage={setSubPage} subPage={subPage} />
+                    )}
+                  </div>
+                </div>
+              </div>
+          </Fragment>
+          }
           <div className="background-question"></div>
         </div>
       );

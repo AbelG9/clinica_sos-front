@@ -26,6 +26,7 @@
     position: fixed;
     left: 20rem;
     bottom: 5rem;
+    z-index: 0;
 }
 
 .Doctor-Image-preset {

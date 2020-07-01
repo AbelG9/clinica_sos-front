@@ -7,6 +7,7 @@ import Background from "../../assets/img/background.svg";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import URL from "../../URL";
+import Loader from "../../components/Loader";
 const MySwal = withReactContent(Swal);
 
 let dataresponse = "";
@@ -14,7 +15,7 @@ let datareniec = "";
 
 const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
   //aqui recibo la variable set page
-
+  const [loading, setLoading] = useState(false);
   const dnipac = dataDni;
   const [nompac, setnompac] = useState("");
   const [apelpac, setapelpac] = useState("");
@@ -68,24 +69,6 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
   }, []);
 
   const GuardarPaciente = ({ dataDni }) => {
-    console.log(
-      "dni: ",
-      dnipac,
-      "nombre: ",
-      nompac,
-      "apellido: ",
-      apelpac,
-      "direccion: ",
-      dirpac,
-      "fecnac: ",
-      fnpac,
-      "sexo: ",
-      sexpac,
-      "tlf: ",
-      telpac,
-      "mail:",
-      mailpac
-    );
     if (
       nompac === "" ||
       apelpac === "" ||
@@ -104,53 +87,63 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
   };
 
   const savePatient = async () => {
+    setLoading(true);
     let params = {
-        dnipac: dnipac,
-        nompac: nompac,
-        apelpac: apelpac,
-        dirpac: dirpac,
-        fnpac: fnpac,
-        sexpac: sexpac,
-        telpac: telpac,
-        mailpac: mailpac,
+      dnipac: dnipac,
+      nompac: nompac,
+      apelpac: apelpac,
+      dirpac: dirpac,
+      fnpac: fnpac,
+      sexpac: sexpac,
+      telpac: telpac,
+      mailpac: mailpac,
     };
     let ressave = await Axios.post(`${url}api/savePatient`, { params });
     let resp = await ressave.data;
     console.log(resp);
     if (resp > 0) {
-        MySwal.fire({
-            icon: "success",
-            title: "Exito!",
-            text: "Datos de paciente guardados exitosamente",
-        }).then((result) => {
-            if (result.value) {
-              let responseid = resp;
-              setStateOption({
-                ...stateOption,
-                usuario: responseid,
-              });
-              setPage(1);
-            }
-        });;
+      setLoading(false);
+      MySwal.fire({
+        icon: "success",
+        title: "Exito!",
+        text: "Datos de paciente guardados exitosamente",
+      }).then((result) => {
+        if (result.value) {
+          let responseid = resp;
+          setStateOption({
+            ...stateOption,
+            usuario: responseid,
+          });
+          setPage(1);
+        } else {
+          let responseid = resp;
+          setStateOption({
+            ...stateOption,
+            usuario: responseid,
+          });
+          setPage(1);
+        }
+      });
     } else {
-        MySwal.fire({
-            icon: "warning",
-            title: "Error!",
-            text: "No se pudo guardar!",
-        }).then((result) => {
-            if (result.value) {
-            setPage(0);
-            }
-        });
+      setLoading(false);
+      MySwal.fire({
+        icon: "warning",
+        title: "Error!",
+        text: "No se pudo guardar!",
+      }).then((result) => {
+        if (result.value) {
+          setPage(0);
+        } else {
+          setPage(0);
+        }
+      });
     }
   };
 
-  //console.log("dataformpacient",dataDni);
   return (
     <div>
       <div
         style={{
-          //border: '2px solid black',
           background: `url(${Background})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% 70%",
@@ -158,22 +151,15 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
           height: "80vh",
         }}
       >
-        <div className="container-flex p-1">
+        {
+          loading ? <Loader /> 
+          :
+          <div className="container-flex p-2 pt-5">
           <div className="row justify-content-md-center">
             <div className="col-lg-6 col-md-6 col-sm-6">
               <div className="card text-center shadow">
-                <div
-                  className="card-header text-uppercase"
-                  style={{ backgroundColor: "#a93aad", color: "white" }}
-                >
-                  <h3>DATOS DE PACIENTE</h3>
-                </div>
                 <div className="card-body">
                   <form className="text-left" id="form_patient">
-                    {/* <div className="form-group d-none">
-                                <Label for="id_paciente">ID</Label>
-                                <Input type="text" className="form-control" id="id_paciente" required="required" autoComplete="off" disabled="" />
-                            </div> */}
                     <div className="form-row">
                       <div className="form-group col-md-6">
                         <Label for="pac_document">DNI</Label>
@@ -185,11 +171,6 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
                           disabled
                         />
                       </div>
-                      {/* <div className="form-group col-md-8">
-                                    <Label for="pac_document">.</Label>
-                                        <div className="alert alert-success py-1" id="check_message" role="alert" style={{display: 'none'}}>
-                                        </div>
-                                </div> */}
                     </div>
                     <div className="form-row">
                       <div className="form-group col-md-6">
@@ -254,10 +235,6 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
                         </select>
                       </div>
                     </div>
-                    {/* <div className="form-group d-none">
-                                <Label for="pac_responsible">* Nombre Responsable</Label>
-                                <Input type="text" className="form-control" id="pac_responsible" autoComplete="off" />
-                            </div> */}
                     <div className="form-row">
                       <div className="form-group col-md-3">
                         <Label for="pac_phone">Telefono</Label>
@@ -281,33 +258,15 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
                           value={mailpac}
                         />
                       </div>
-                      {/* <div className="form-group col-md-3">
-                                    <Label for="pac_estado">* Estado</Label>
-                                    <select className="form-control" id="pac_estado" required="required" autoComplete="off">
-                                        <option value="1">Activo</option>
-                                        <option value="0">Inactivo</option>
-                                    </select>
-                                </div> */}
                     </div>
-                    {/* <div className="form-group d-none">
-                                <div className="form-check">
-                                    <Input className="form-check-input" type="checkbox" id="form21" value="on" checked="checked" required="required" autoComplete="off" />
-                                    <Label className="form-check-label" for="form21">Acepto terminos y condiciones</Label>
-                                </div>
-                            </div> */}
                     <div className="modal-footer">
                       <Button color="info" onClick={GuardarPaciente}>
                         Guardar
                       </Button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
-                      <Button color="secondary" onClick={() => setPage(0)}>
+                      <Button outline color="secondary" onClick={() => setPage(0)}>
                         Salir
                       </Button>
-                      {/* // aqui usas la variabel (importante () => setPage(0))                           */}
-                      {/* <?if(isset($_GET['edit'])):?> */}
-                      {/* <Button type="submit" className="btn btn-warning">Actualizar</Button> */}
-                      {/* <?else:?> */}
-                      {/* <?endif?> */}
                     </div>
                   </form>
                 </div>
@@ -315,6 +274,8 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
             </div>
           </div>
         </div>
+        }
+        
       </div>
     </div>
   );
