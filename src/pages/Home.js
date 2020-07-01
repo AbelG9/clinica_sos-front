@@ -58,15 +58,26 @@ const Home = () => {
       let datareniec = await resreniec.data;
         let res = await Axios.post(`${url}api/getPatient`, {dataDni});
         let response = await res.data;
-        console.log(response.length);
+        //console.log(response);
         if (response.length > 0) {
           let responseid = response[0].id_paciente;
-          setStateOption({
-            ...stateOption,
-            usuario: responseid,
-          });
-          setPage(1);
-          setLoading(false);
+            let resdays = await Axios.post(`${url}api/getlasttriage`, {responseid});
+            let responsedays = await resdays.data;
+            setLoading(false);
+            console.log(responsedays);
+            if (responsedays>=14){
+              setStateOption({
+                ...stateOption,
+                usuario: responseid,
+              });
+              setPage(1);
+              setLoading(false);
+            }
+            else{
+              setPage(1);
+              setSubPage(4);
+              setLoading(false);
+            }      
         } else {
           setLoading(false);
           setPage(2);
