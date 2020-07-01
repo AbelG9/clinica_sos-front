@@ -12,7 +12,7 @@ const MySwal = withReactContent(Swal);
 let dataresponse = "";
 let datareniec = "";
 
-const FormPacient = ({ dataDni, setPage }) => {
+const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
   //aqui recibo la variable set page
 
   const dnipac = dataDni;
@@ -124,7 +124,12 @@ const FormPacient = ({ dataDni, setPage }) => {
             text: "Datos de paciente guardados exitosamente",
         }).then((result) => {
             if (result.value) {
-            setPage(1);
+              let responseid = resp;
+              setStateOption({
+                ...stateOption,
+                usuario: responseid,
+              });
+              setPage(1);
             }
         });;
     } else {

@@ -29,6 +29,7 @@ const Home = () => {
   const [page, setPage] = useState(0);
   const [subPage, setSubPage] = useState(1);
   const [stateOption, setStateOption] = useState({
+    usuario: 0,
     option1: "no",
     option2: "no",
     option3: "no",
@@ -54,7 +55,13 @@ const Home = () => {
       let datareniec = await resreniec.data;
         let res = await Axios.post(`${url}api/getPatient`, {dataDni});
         let response = await res.data;
-        if (response > 0) {
+        console.log(response.length);
+        if (response.length > 0) {
+          let responseid = response[0].id_paciente;
+          setStateOption({
+            ...stateOption,
+            usuario: responseid,
+          });
           setPage(1);
         } else {
           setPage(2);
@@ -123,14 +130,38 @@ const Home = () => {
     }
   }
 
-  const handleClickFin = () => {
+  const handleClickFin = async () => {
     if (stateOption.option7.length > 0 && stateOption.option8.length > 0) {
-      setSubPage(subPage + 1)
+      let resq = await Axios.post(`${url}api/saveTriageHistory`, { stateOption });
+      console.log("resquestions: ",resq);
+      let respq = await resq.data;
+      console.log("respuesta questions: ",respq);
+      if (respq > 0) {
+        MySwal.fire({
+            icon: "success",
+            title: "Exito!",
+            text: "Datos de triaje guardados exitosamente",
+        }).then((result) => {
+            if (result.value) {
+              setSubPage(subPage + 1)
+            }
+        });;
+    } else {
+        MySwal.fire({
+            icon: "warning",
+            title: "Error!",
+            text: "No se pudo guardar!",
+        }).then((result) => {
+            if (result.value) {
+            //setPage(0);
+            }
+        });
+    }
     } else {
       MySwal.fire({
         icon: "warning",
         title: "Oops...",
-        text: "complete todos los campos por favor!",
+        text: "Complete todos los campos por favor!",
       });
     }
   } 
@@ -145,7 +176,7 @@ const Home = () => {
           >
             <div className="h-100 d-flex flex-column justify-content-around">
               <div className="d-flex flex-column">
-                <OptionQuestion question="1. ¿Tiene fiebre o la ha tenido en estos ultios 30 dias?" />
+                <OptionQuestion question="1. ¿Tiene fiebre o la ha tenido en estos últimos 30 dias?" />
                 <ToggleSwitch
                   name="option1"
                   stateOption={stateOption.option1}
@@ -153,7 +184,7 @@ const Home = () => {
                 />
               </div>
               <div className="d-flex flex-column">
-                <OptionQuestion question="2. ¿Ha tenido problemas respiratorios en los ultimos 14 dias?" />
+                <OptionQuestion question="2. ¿Ha tenido problemas respiratorios en los últimos 14 dias?" />
                 <ToggleSwitch
                   name="option2"
                   stateOption={stateOption.option2}
@@ -161,7 +192,7 @@ const Home = () => {
                 />
               </div>
               <div className="d-flex flex-column">
-                <OptionQuestion question="3. ¿Ha tenido dolor de garganta en los ultimos 14 dias?" />
+                <OptionQuestion question="3. ¿Ha tenido dolor de garganta en los últimos 14 dias?" />
                 <ToggleSwitch
                   name="option3"
                   stateOption={stateOption.option3}
@@ -185,7 +216,7 @@ const Home = () => {
           >
             <div className=" h-100 d-flex flex-column justify-content-around">
               <div className="d-flex flex-column">
-                <OptionQuestion question="4. ¿Ha estado en contacto con alguna persona con los  sintomas anteriores descritos o con cuadro respiratorio agudo?" />
+                <OptionQuestion question="4. ¿Ha estado en contacto con alguna persona con los síntomas anteriores descritos o con cuadro respiratorio agudo?" />
                 <ToggleSwitch
                   name="option4"
                   stateOption={stateOption.option4}
@@ -193,7 +224,7 @@ const Home = () => {
                 />
               </div>
               <div className="d-flex flex-column">
-                <OptionQuestion question="5. ¿Ha estado en contacto con alguna persona con confirmacion de coronavirus?" />
+                <OptionQuestion question="5. ¿Ha estado en contacto con alguna persona con confirmación de coronavirus?" />
                 <ToggleSwitch
                   name="option5"
                   stateOption={stateOption.option5}
@@ -249,7 +280,7 @@ const Home = () => {
           >
             <div className=" h-100 d-flex flex-column justify-content-around">
               <div className="d-flex flex-column">
-                <OptionQuestion question="7. ¿Ha que se dedica?" />
+                <OptionQuestion question="7. ¿A que se dedica?" />
                 <div>
                   <FormGroup>
                     <Input className="w-50" type="text" name="option7" value={stateOption.option7} onChange={(e) => handleStateOption(e)} />
@@ -257,7 +288,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="d-flex flex-column">
-                <OptionQuestion question="8.  lugar de trabajo" />
+                <OptionQuestion question="8. Lugar de trabajo" />
                 <div>
                   <FormGroup>
                     <Input className="w-50" type="text" name="option8" value={stateOption.option8} onChange={(e) => handleStateOption(e)}  />
@@ -351,7 +382,9 @@ const Home = () => {
       );
     case 2:
           return (
-            <RegisterData 
+            <RegisterData
+              setStateOption={setStateOption}
+              stateOption={stateOption}
               setPage={setPage} //jalas la variable de Home al componente Register
               dataDni={dataDni}
             />
