@@ -10,7 +10,6 @@ import URL from "../../URL";
 import Loader from "../../components/Loader";
 const MySwal = withReactContent(Swal);
 
-let dataresponse = "";
 let datareniec = "";
 
 const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
@@ -42,7 +41,6 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
 
   const hsetsexpac = (e) => {
     setsexpac(e.target.value);
-    console.log(sexpac);
   };
 
   const hsettelpac = (e) => {
@@ -53,20 +51,22 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
     setmailpac(e.target.value);
   };
 
+  const [disabled, setDisabled] = useState(true);
+
   useEffect(() => {
     const DataPatient = async () => {
-      //ejemplo
-      let resreniec = await Axios.get(`${URL.url}${dataDni}${URL.token}`); //me avisas si funciona esto, no esToy tan seguro, pero debe ser asi con el metodo GET
-      datareniec = await resreniec.data;
-      setnompac(datareniec.nombres);
-      setapelpac(datareniec.apellidoPaterno + " " + datareniec.apellidoMaterno);
-      //console.log(URL.url + dnipac + URL.token)
-      let resdata = await Axios.post(`${url}api/getDataPatient`, { dataDni });
-      dataresponse = await resdata.data;
-      console.log("dataresponse ", dataresponse);
+      try {
+        let resreniec = await Axios.get(`${URL.url}${dataDni}${URL.token}`); 
+        datareniec = await resreniec.data;
+        setnompac(datareniec.nombres);
+        setapelpac(datareniec.apellidoPaterno + " " + datareniec.apellidoMaterno);
+        setDisabled(true);
+      } catch (error) {
+        setDisabled(false);
+      }
     };
     DataPatient();
-  }, []);
+  }, [dataDni]);
 
   const GuardarPaciente = ({ dataDni }) => {
     if (
@@ -74,7 +74,8 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
       apelpac === "" ||
       dirpac === "" ||
       fnpac === "" ||
-      telpac === ""
+      telpac === "" ||
+      sexpac === ""
     ) {
       MySwal.fire({
         icon: "warning",
@@ -82,7 +83,19 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
         text: "Te falta llenar algunos campos!",
       });
     } else {
-      savePatient();
+      if (
+        telpac.length>9 ||
+        telpac.length<9
+      ) {
+        MySwal.fire({
+          icon: "warning",
+          title: "Número incorrecto!",
+          text: "Ingresa un número de teléfono correcto!",
+        });
+      }
+      else {
+        savePatient();
+      }
     }
   };
 
@@ -100,7 +113,6 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
     };
     let ressave = await Axios.post(`${url}api/savePatient`, { params });
     let resp = await ressave.data;
-    console.log(resp);
     if (resp > 0) {
       setLoading(false);
       MySwal.fire({
@@ -154,7 +166,7 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
         {
           loading ? <Loader /> 
           :
-          <div className="container-flex p-2 pt-5">
+          <div className="container-flex p-2 pt-2">
           <div className="row justify-content-md-center">
             <div className="col-lg-6 col-md-6 col-sm-6">
               <div className="card text-center shadow">
@@ -183,7 +195,7 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
                           autoComplete="off"
                           onChange={hsetnompac}
                           value={nompac}
-                          disabled
+                          disabled={disabled}
                         />
                       </div>
                       <div className="form-group col-md-6">
@@ -197,7 +209,7 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
                           autoComplete="off"
                           onChange={hsetapelpac}
                           value={apelpac}
-                          disabled
+                          disabled={disabled}
                         />
                       </div>
                     </div>
@@ -239,7 +251,7 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
                       <div className="form-group col-md-3">
                         <Label for="pac_phone">Telefono</Label>
                         <Input
-                          type="text"
+                          type="number"
                           className="form-control"
                           id="pac_phone"
                           required="required"
