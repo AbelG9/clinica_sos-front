@@ -13,7 +13,6 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/Registro" component={RegisterData} />
           <Route exact component={NoFound} />
         </Switch>
       </Router>
