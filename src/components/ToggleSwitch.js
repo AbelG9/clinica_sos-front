@@ -4,7 +4,7 @@ import '../assets/styles/ToogleSwitch.css'
 const ToggleSwitch = ({name, stateOption, setStateOption, option}) => {
 
     return (
-        <div className="d-flex flex-row">
+        <div className="d-flex flex-row custom-font">
             <label className="toggle-radio ml-4 ml-sm-5 ml-md-5 ml-lg-5">
                 <input type="radio" name={name} value="yes"  id="yes" checked={stateOption === 'yes'} onChange={setStateOption} />
                 <span className="checkmark"></span>
