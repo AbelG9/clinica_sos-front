@@ -20,7 +20,6 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ToggleSwitch from "../components/ToggleSwitch";
 import { Button, FormGroup, Label, Input } from 'reactstrap';
-import URL from '../URL'
 import Loader from '../components/Loader'
 
 const MySwal = withReactContent(Swal);
@@ -48,23 +47,18 @@ const Home = () => {
       ...stateOption,
       [e.target.name]: e.target.value,
     });
-    console.log(stateOption);
   };
 
   const checkPatient = async (dataDni) => {
     try {
       setLoading(true);
-      let resreniec = await Axios.get(`${URL.url}${dataDni}${URL.token}`);
-      let datareniec = await resreniec.data;
         let res = await Axios.post(`${url}api/getPatient`, {dataDni});
         let response = await res.data;
-        console.log(response);
         if (response.length > 0) {
           let responseid = response[0].id_paciente;
             let resdays = await Axios.post(`${url}api/getlasttriage`, {responseid});
             let responsedays = await resdays.data;
             setLoading(false);
-            console.log("RESPONSE: "+responsedays);
             if (responsedays>=14){
               setStateOption({
                 ...stateOption,
@@ -151,9 +145,7 @@ const Home = () => {
     if (stateOption.option7.length > 0 && stateOption.option8.length > 0) {
       setLoading(true);
       let resq = await Axios.post(`${url}api/saveTriageHistory`, { stateOption });
-      console.log("resquestions: ",resq);
       let respq = await resq.data;
-      console.log("respuesta questions: ",respq);
       if (respq > 0) {
         setLoading(false);
         MySwal.fire({
