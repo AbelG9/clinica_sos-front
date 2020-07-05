@@ -17,7 +17,7 @@ const NavPac = () => {
     
     return (
         <div>
-      <Navbar color="light" light expand="md">
+      <Navbar color="light" light expand="md" className="shadow">
         <NavbarBrand href="/">
             <img src={Logo} alt="Fairdent" width="150"/>
         </NavbarBrand>

@@ -5,6 +5,7 @@ import DoctorTesting from "../assets/img/doctor-testing.svg";
 import DoctorPaciente from "../assets/img/doctor-paciente.svg";
 import DoctorPresent from "../assets/img/doctor-present.svg";
 import DoctorResult from "../assets/img/doctor-result.svg";
+import DniCard from "../assets/img/dni-card.png";
 import FormYesNo from "../components/FormYesNo";
 import Logo from "../assets/img/logo.svg";
 import "../assets/styles/Home.css";
@@ -20,7 +21,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ToggleSwitch from "../components/ToggleSwitch";
 import { Button, FormGroup, Label, Input } from 'reactstrap';
-import Loader from '../components/Loader'
+import Loader from '../components/Loader';
 
 const MySwal = withReactContent(Swal);
 
@@ -217,7 +218,7 @@ const Home = () => {
               </div>
             </div>
             <button
-              className="btn btn-primary mt-auto"
+              className="btn btn-primary mt-auto custom-font"
               onClick={() => setSubPage(subPage + 1)}
             >
               Siguiente
@@ -264,7 +265,7 @@ const Home = () => {
                   setStateOption={handleStateOption}
                 /> 
                   <div>
-                    <div>
+                    <div className="custom-font">
                       <FormGroup>
                         <Label for="exampleEmail">6.1 ¿Cual fue el resultado?</Label>
                         <ToggleSwitch
@@ -281,7 +282,7 @@ const Home = () => {
               </div>
             </div>
             <button
-              className="btn btn-primary mt-auto"
+              className="btn btn-primary mt-auto custom-font"
               onClick={() => setSubPage(subPage + 1)}
             >
               Siguiente
@@ -294,7 +295,7 @@ const Home = () => {
             className="h-100 d-flex flex-column"
             onSubmit={(e) => e.preventDefault()}
           >
-            <div className=" h-100 d-flex flex-column justify-content-around">
+            <div className=" h-100 d-flex flex-column justify-content-around custom-font">
               <div className="d-flex flex-column">
                 <OptionQuestion question="7. ¿A que se dedica?" />
                 <div>
@@ -313,7 +314,7 @@ const Home = () => {
               </div>
             </div>
             <button
-              className="btn btn-primary mt-auto"
+              className="btn btn-primary mt-auto custom-font"
               onClick={() => handleClickFin()}
             >
               Finalizar
@@ -323,11 +324,21 @@ const Home = () => {
       default:
         return(
           <FormGroup tag="fieldset">
-            <div className="title-custom-form">
-                <h2 className="text-black text-right">El triaje ha terminado</h2>
-            </div>
-            <div className="d-flex justify-content-end">
-                <Button color="secondary" className="btn-lg" href="/">Salir</Button>
+            <div className="title-custom-form custom-font">
+                <h1 className="text-black text-right">El triaje ha terminado</h1>
+                <div className="DNIB-Image-Preset">
+                  <h2 className="text-black text-left">Recuerde siempre </h2>
+                  <h2 className="text-black text-left">traer su DNI para</h2>
+                  <h2 className="text-black text-left">su atención</h2>
+                  <br />
+                  <img
+                    className="DNI-Image-preset"
+                    src={DniCard}
+                    alt="Fairdent"
+                  />
+                  <br />
+                  <Button color="info" className="btn-lg btnsalir-pos" href="/">Salir</Button>
+                </div>
             </div>
           </FormGroup>
         );
@@ -411,7 +422,7 @@ const Home = () => {
             <RegisterData
               setStateOption={setStateOption}
               stateOption={stateOption}
-              setPage={setPage} //jalas la variable de Home al componente Register
+              setPage={setPage}
               dataDni={dataDni}
             />
           );

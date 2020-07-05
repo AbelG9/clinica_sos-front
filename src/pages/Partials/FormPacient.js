@@ -166,11 +166,11 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
         {
           loading ? <Loader /> 
           :
-          <div className="container-flex p-2 pt-2">
+          <div className="container-flex p-2 pt-2 custom-font">
           <div className="row justify-content-md-center">
             <div className="col-lg-6 col-md-6 col-sm-6">
               <div className="card text-center shadow">
-                <div className="card-body">
+                <div className="card-body custom-colors">
                   <form className="text-left" id="form_patient">
                     <div className="form-row">
                       <div className="form-group col-md-6">
