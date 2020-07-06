@@ -42,6 +42,7 @@ const Home = () => {
     option7: "",
     option8: "",
   });
+  const [triajedays, settriajedays] = useState(0);
 
   const handleStateOption = (e) => {
     setStateOption({
@@ -59,6 +60,7 @@ const Home = () => {
           let responseid = response[0].id_paciente;
             let resdays = await Axios.post(`${url}api/getlasttriage`, {responseid});
             let responsedays = await resdays.data;
+            settriajedays(responsedays);
             setLoading(false);
             if (responsedays>=14){
               setStateOption({
@@ -70,7 +72,7 @@ const Home = () => {
             }
             else{
               setPage(1);
-              setSubPage(4);
+              setSubPage(5);
               setLoading(false);
             }      
         } else {
@@ -322,10 +324,18 @@ const Home = () => {
           </form>
         );
       default:
+        let timetriaje;
+        if (param===4) {
+          timetriaje = <div><h1 className="text-black text-right">El triaje ha terminado</h1></div>;
+        }
+        else if (param===5) {
+          timetriaje = <div><h2 className="text-black text-right">Usted ya realizó su triaje</h2>
+          <h2 className="text-black text-right">hace {triajedays} días</h2></div>;
+        }
         return(
           <FormGroup tag="fieldset">
             <div className="title-custom-form custom-font">
-                <h1 className="text-black text-right">El triaje ha terminado</h1>
+              {timetriaje}
                 <div className="DNIB-Image-Preset">
                   <h2 className="text-black text-left">Recuerde siempre </h2>
                   <h2 className="text-black text-left">traer su DNI para</h2>
