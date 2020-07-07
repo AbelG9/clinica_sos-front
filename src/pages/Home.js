@@ -329,8 +329,18 @@ const Home = () => {
           timetriaje = <div><h1 className="text-black text-right">El triaje ha terminado</h1></div>;
         }
         else if (param===5) {
-          timetriaje = <div><h2 className="text-black text-right">Usted ya realizó su triaje</h2>
-          <h2 className="text-black text-right">hace {triajedays} días</h2></div>;
+          if (triajedays===0) {
+            timetriaje = <div><h2 className="text-black text-right">Usted ya realizó su triaje</h2>
+            <h2 className="text-black text-right">el día de hoy</h2></div>;
+          }
+          else if (triajedays===1){
+            timetriaje = <div><h2 className="text-black text-right">Usted ya realizó su triaje</h2>
+            <h2 className="text-black text-right">el día de ayer</h2></div>;
+          }
+          else{
+            timetriaje = <div><h2 className="text-black text-right">Usted ya realizó su triaje</h2>
+            <h2 className="text-black text-right">hace {triajedays} días</h2></div>;
+          }
         }
         return(
           <FormGroup tag="fieldset">

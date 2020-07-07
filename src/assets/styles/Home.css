@@ -17,9 +17,9 @@
 }
 
 .doctor-svg{
-    position: absolute;
-    right: 15rem;
-    top: 10rem;
+    position: fixed;
+    right: 10%;
+    top: 35%;
 }
 
 .btnsalir-pos{
@@ -159,9 +159,9 @@
     }
 
     .doctor-svg{
-        position: absolute;
-        right: 4rem;
-        top: 10rem;
+        position: fixed;
+        right: 10%;
+        top: 40%;
     }
 
     .doctor-svg img{
@@ -194,9 +194,9 @@
     }
 
     .doctor-svg{
-        position: absolute;
-        right: 12rem;
-        top: 10rem;
+        position: fixed;
+        right: 10%;
+        top: 35%;
     }
 
     .doctor-svg img{
@@ -229,9 +229,9 @@
     }
 
     .doctor-svg{
-        position: absolute;
-        right: 15rem;
-        top: 13rem;
+        position: fixed;
+        right: 10%;
+        top: 35%;
     }
 
     .doctor-svg img{
