@@ -76,9 +76,32 @@ const Home = () => {
               setLoading(false);
             }      
         } else {
-          setLoading(false);
-          setPage(2);
+          // const configurarpagina2 = () => {
+          //   setLoading(false);
+          //   console.log("ir a pagina 2");
+          //   setPage(2);
+          // }
+          MySwal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'DNI no registrado! Desea registrarse?',
+            showCancelButton: true,
+            confirmButtonColor: '#5bc0de',
+            confirmButtonText: 'Si, regístrame!',
+            cancelButtonColor: '#d9534f',
+            cancelButtonText: 'No, cancelar',
+            allowEscapeKey: false,
+            allowOutsideClick: false
+            }).then((result) => {
+              if (result.value) {
+                setLoading(false);
+                setPage(2);
+              } else if (result.dismiss === Swal.DismissReason.cancel) {
+                setLoading(false);
+              }
+            })
         }
+        
     } catch (error) {
       setLoading(false);
       console.error(error);
