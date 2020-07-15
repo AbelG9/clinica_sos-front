@@ -22,12 +22,16 @@ import withReactContent from "sweetalert2-react-content";
 import ToggleSwitch from "../components/ToggleSwitch";
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import Loader from '../components/Loader';
+import Dashb from './Dashb';
+import { Redirect } from "react-router-dom";
 
 const MySwal = withReactContent(Swal);
 
 const Home = () => {
-  const [loading, setLoading] = useState(false);
-  const [dataDni, setDataDni] = useState("");
+  const [loading, setLoading] = useState(false); //Pantalla de carga
+  const [dataDni, setDataDni] = useState(""); //State de DNI
+  const [triajedays, settriajedays] = useState(0); //Días de triaje
+
   const [page, setPage] = useState(0);
   const [subPage, setSubPage] = useState(1);
   const [stateOption, setStateOption] = useState({
@@ -42,7 +46,11 @@ const Home = () => {
     option7: "",
     option8: "",
   });
-  const [triajedays, settriajedays] = useState(0);
+  
+  // const goDashboard = () => {
+  //   console.log("godashboard");
+  //     return <Redirect to='/dashboard' />;
+  // }
 
   const handleStateOption = (e) => {
     setStateOption({
@@ -50,37 +58,33 @@ const Home = () => {
       [e.target.name]: e.target.value,
     });
   };
-
+  //funcion de verificacion de DNI
   const checkPatient = async (dataDni) => {
     try {
       setLoading(true);
         let res = await Axios.post(`${url}api/getPatient`, {dataDni});
         let response = await res.data;
         if (response.length > 0) {
-          let responseid = response[0].id_paciente;
+          let responseid = response[0].id_paciente;                                   //responseid=id del paciente
             let resdays = await Axios.post(`${url}api/getlasttriage`, {responseid});
             let responsedays = await resdays.data;
             settriajedays(responsedays);
             setLoading(false);
-            if (responsedays>=14){
-              setStateOption({
-                ...stateOption,
-                usuario: responseid,
-              });
-              setPage(1);
-              setLoading(false);
-            }
-            else{
-              setPage(1);
-              setSubPage(5);
-              setLoading(false);
-            }      
+            setPage(10);
+            // if (responsedays>=14){
+            //   setStateOption({
+            //     ...stateOption,
+            //     usuario: responseid,
+            //   });
+            //   setPage(1);
+            //   setLoading(false);
+            // }
+            // else{
+            //   setPage(1);
+            //   setSubPage(5);
+            //   setLoading(false);
+            // }      
         } else {
-          // const configurarpagina2 = () => {
-          //   setLoading(false);
-          //   console.log("ir a pagina 2");
-          //   setPage(2);
-          // }
           MySwal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -95,7 +99,9 @@ const Home = () => {
             }).then((result) => {
               if (result.value) {
                 setLoading(false);
-                setPage(2);
+                //goDashboard();
+                //Redirect 
+                setPage(12);
               } else if (result.dismiss === Swal.DismissReason.cancel) {
                 setLoading(false);
               }
@@ -112,11 +118,11 @@ const Home = () => {
     })
     }
   }
-
+  //Funcion al ingresar el DNI
   const handleChange = (e) => {
     setDataDni(e.target.value);
   };
-
+  //Funcion al dar enter en el campo del DNI
   const handleSubmit = (e) => {
     e.preventDefault();
     if (dataDni.length < 8 || dataDni.length > 8) {
@@ -145,7 +151,6 @@ const Home = () => {
           <img
             src={Doctor2}
             alt="Fairdent"
-            width="200"
           />
         )
       case 3:
@@ -425,7 +430,7 @@ const Home = () => {
           </div>
         </div>
       );
-    case 1:
+    case 32:
       return (
         <div className="container-fluid p-5" style={{ height: "100vh" }}>
           <div className="row">
@@ -460,7 +465,14 @@ const Home = () => {
           <div className="background-question"></div>
         </div>
       );
-    case 2:
+    case 10:
+        return(
+          <Dashb
+            setPage={setPage}
+            dataDni={dataDni}
+          />
+        );
+    case 12:
           return (
             <RegisterData
               setStateOption={setStateOption}

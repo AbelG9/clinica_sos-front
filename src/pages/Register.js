@@ -1,6 +1,7 @@
 import React from 'react';
 import NavPac from './Partials/Navbar';
 import FormPacient from './Partials/FormPacient';
+import SidePac from './Partials/Sidebar';
 
 const RegisterData = ({dataDni, setPage, setStateOption, stateOption}) => { 
     return (
@@ -12,6 +13,7 @@ const RegisterData = ({dataDni, setPage, setStateOption, stateOption}) => {
                 setPage={setPage}
                 dataDni={dataDni}
             />
+            <SidePac />
         </div>   
     );
 }
