@@ -16,19 +16,19 @@ const NavPac = () => {
     const toggle = () => setIsOpen(!isOpen);
     
     return (
-      <div>
-        <Navbar color="light" light expand="md" className="shadow">
-          <NavbarBrand href="/">
-              <img src={Logo} alt="Fairdent" width="150"/>
-          </NavbarBrand>
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
-            </Nav>
-            <a href="https://web.facebook.com/clinicafairdent" className="fbimage">      </a>
-          </Collapse>
-        </Navbar>
-      </div>
+        <div>
+      <Navbar color="light" light expand="md" className="shadow">
+        <NavbarBrand href="/">
+            <img src={Logo} alt="Fairdent" width="150"/>
+        </NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="mr-auto" navbar>
+          </Nav>
+          <a href="https://web.facebook.com/clinicafairdent" className="fbimage">      </a>
+        </Collapse>
+      </Navbar>
+    </div>
     );
 }
 
