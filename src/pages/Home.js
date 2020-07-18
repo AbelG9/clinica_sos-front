@@ -76,11 +76,6 @@ const Home = () => {
               setLoading(false);
             }      
         } else {
-          // const configurarpagina2 = () => {
-          //   setLoading(false);
-          //   console.log("ir a pagina 2");
-          //   setPage(2);
-          // }
           MySwal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -379,7 +374,8 @@ const Home = () => {
                     src={DniCard}
                     alt="Fairdent"
                   />
-                  <br />
+                  <br /><br />
+                  <Button color="info" className="btn-lg btnperfil-pos" href="/">Mi Perfil</Button>
                   <Button color="info" className="btn-lg btnsalir-pos" href="/">Salir</Button>
                 </div>
             </div>

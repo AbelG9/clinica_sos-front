@@ -29,6 +29,13 @@
     bottom: 10%;
 }
 
+.btnperfil-pos{
+    width: 100px;
+    position: fixed;
+    right: 25%;
+    bottom: 10%;
+}
+
 .Image-Preset {
     position: fixed;
     left: 20rem;
@@ -69,6 +76,13 @@
         display: none;
     }
 
+    .btnperfil-pos{
+        width: 100px;
+        position: fixed;
+        right: 10%;
+        bottom: 20%;
+    }
+
     .background-question {
         background-size: 75% 50%;
     }
@@ -98,6 +112,13 @@
 
     .doctor-svg{
         display: none;
+    }
+
+    .btnperfil-pos{
+        width: 100px;
+        position: fixed;
+        right: 10%;
+        bottom: 20%;
     }
 
     .background-question {
@@ -131,6 +152,13 @@
 
     .doctor-svg{
         display: none;
+    }
+
+    .btnperfil-pos{
+        width: 100px;
+        position: fixed;
+        right: 10%;
+        bottom: 20%;
     }
 
     .background-question {
@@ -168,6 +196,13 @@
         width: 150px;
     }
 
+    .btnperfil-pos{
+        width: 100px;
+        position: fixed;
+        right: 25%;
+        bottom: 10%;
+    }
+
     .background-question {
         background-size: 75% 70%;
     }
@@ -201,6 +236,13 @@
 
     .doctor-svg img{
         width: 200px;
+    }
+
+    .btnperfil-pos{
+        width: 100px;
+        position: fixed;
+        right: 25%;
+        bottom: 10%;
     }
 
     .background-question {
@@ -238,6 +280,13 @@
         width: 200px;
     }
     
+    .btnperfil-pos{
+        width: 100px;
+        position: fixed;
+        right: 20%;
+        bottom: 10%;
+    }
+
 }
 @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 
