@@ -22,6 +22,7 @@ import withReactContent from "sweetalert2-react-content";
 import ToggleSwitch from "../components/ToggleSwitch";
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import Loader from '../components/Loader';
+import MainPatient from './MainPaciente';
 
 const MySwal = withReactContent(Swal);
 
@@ -375,7 +376,7 @@ const Home = () => {
                     alt="Fairdent"
                   />
                   <br /><br />
-                  <Button color="info" className="btn-lg btnperfil-pos" href="/">Mi Perfil</Button>
+                  <Button color="info" className="btn-lg btnperfil-pos" onClick={() => setPage(10)} >Mi Perfil</Button>
                   <Button color="info" className="btn-lg btnsalir-pos" href="/">Salir</Button>
                 </div>
             </div>
@@ -465,6 +466,10 @@ const Home = () => {
               dataDni={dataDni}
             />
           );
+    case 10:
+        return (
+          <MainPatient />
+        );
     default:
       break;
   }
