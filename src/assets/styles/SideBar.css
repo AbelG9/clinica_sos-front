@@ -36,7 +36,15 @@ a:focus {
 }
 
 .sidebar-header {
-  background: #253475;
+  background: #fff;
+  min-height: 100px;
+}
+
+.logo-pos{
+  padding-top: 8%;
+  padding-bottom: 5%;
+  padding-left: 12%;
+  width: 80%;
 }
 
 .sidebar-header h3 {

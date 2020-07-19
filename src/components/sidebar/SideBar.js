@@ -13,14 +13,16 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 
 import SubMenu from "./SubMenu";
+import Logo from '../../assets/img/logo.svg'
 
 const SideBar = ({ isOpen, toggle }) => (
   <div className={classNames("sidebar", { "is-open": isOpen })}>
     <div className="sidebar-header">
+      <img src={Logo} alt="Fairdent" className="logo-pos"/>
       <span color="info" onClick={toggle} style={{ color: "#fff" }}>
         &times;
       </span>
-      <h3>Bootstrap Sidebar</h3>
+      {/* <h3>Bootstrap Sidebar</h3> */}
     </div>
     <div className="side-menu">
       <Nav vertical className="list-unstyled pb-3">
