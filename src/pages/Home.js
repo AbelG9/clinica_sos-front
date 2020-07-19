@@ -22,7 +22,7 @@ import withReactContent from "sweetalert2-react-content";
 import ToggleSwitch from "../components/ToggleSwitch";
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import Loader from '../components/Loader';
-import MainPatient from './MainPaciente';
+import { Redirect } from "react-router-dom";
 
 const MySwal = withReactContent(Swal);
 
@@ -468,7 +468,7 @@ const Home = () => {
           );
     case 10:
         return (
-          <MainPatient />
+          <Redirect to ="/paciente" />
         );
     default:
       break;

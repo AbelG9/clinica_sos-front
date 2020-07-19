@@ -5,6 +5,7 @@
     padding: 20px;
     margin-left: 0;
     height: 100vh;
+    background: #F6F4DA;
   }
   
   @media only screen and (max-width: 500px) {

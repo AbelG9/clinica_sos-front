@@ -1,12 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHome,
-  faBriefcase,
-  faPaperPlane,
-  faQuestion,
-  faImage,
-  faCopy,
+  faCalendar,
+  faThermometerFull,
+  faUserCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { NavItem, NavLink, Nav } from "reactstrap";
 import classNames from "classnames";
@@ -22,35 +19,21 @@ const SideBar = ({ isOpen, toggle }) => (
       <span color="info" onClick={toggle} style={{ color: "#fff" }}>
         &times;
       </span>
-      {/* <h3>Bootstrap Sidebar</h3> */}
     </div>
     <div className="side-menu">
       <Nav vertical className="list-unstyled pb-3">
-        <p>Dummy Heading</p>
-        <SubMenu title="Home" icon={faHome} items={submenus[0]} />
+        <p>Nombre paciente</p>
         <NavItem>
-          <NavLink tag={Link} to={"/about"}>
-            <FontAwesomeIcon icon={faBriefcase} className="mr-2" />
-            About
+          <NavLink tag={Link} to={"/paciente/perfil"}>
+            <FontAwesomeIcon icon={faUserCircle} className="mr-2" />
+            Perfil
           </NavLink>
         </NavItem>
-        <SubMenu title="Pages" icon={faCopy} items={submenus[1]} />
+        <SubMenu title="Citas" icon={faCalendar} items={submenus[0]} />
         <NavItem>
-          <NavLink tag={Link} to={"/pages"}>
-            <FontAwesomeIcon icon={faImage} className="mr-2" />
-            Portfolio
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink tag={Link} to={"/faq"}>
-            <FontAwesomeIcon icon={faQuestion} className="mr-2" />
-            FAQ
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink tag={Link} to={"/contact"}>
-            <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
-            Contact
+          <NavLink tag={Link} to={"/paciente/triaje"}>
+            <FontAwesomeIcon icon={faThermometerFull} className="mr-2" />
+            Triaje
           </NavLink>
         </NavItem>
       </Nav>
@@ -61,26 +44,12 @@ const SideBar = ({ isOpen, toggle }) => (
 const submenus = [
   [
     {
-      title: "Home 1",
-      target: "Home-1",
+      title: "Mis Citas",
+      target: "/paciente/listacitas",
     },
     {
-      title: "Home 2",
-      target: "Home-2",
-    },
-    {
-      itle: "Home 3",
-      target: "Home-3",
-    },
-  ],
-  [
-    {
-      title: "Page 1",
-      target: "Page-1",
-    },
-    {
-      title: "Page 2",
-      target: "Page-2",
+      title: "Obtener Cita",
+      target: "/paciente/obtenercita",
     },
   ],
 ];

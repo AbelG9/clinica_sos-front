@@ -9,8 +9,14 @@ const Mainpatient = () => {
     const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
     return (
         <div className="AppDash wrapper">
-            <SideBar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
-            <Content toggleSidebar={toggleSidebar} sidebarIsOpen={sidebarIsOpen} />
+            <SideBar 
+                toggle={toggleSidebar} 
+                isOpen={sidebarIsOpen} 
+            />
+            <Content 
+                toggleSidebar={toggleSidebar} 
+                sidebarIsOpen={sidebarIsOpen} 
+            />
         </div>
     );
 }

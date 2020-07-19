@@ -6,14 +6,14 @@ import {
 } from "react-router-dom";
 import Home from './pages/Home'
 import NoFound from "./pages/404";
-import RegisterData from "./pages/Register";
+import Mainpatient from "./pages/MainPaciente";
 
 function App() {
   return (
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/Registro" component={RegisterData} />
+          <Route path="/paciente" component={Mainpatient} />
           <Route exact component={NoFound} />
         </Switch>
       </Router>
