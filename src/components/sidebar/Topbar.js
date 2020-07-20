@@ -29,7 +29,7 @@ const Topbar = ({ toggleSidebar }) => {
       <NavbarToggler onClick={toggleTopbar} />
       <Collapse isOpen={topbarIsOpen} navbar>
         <Nav className="ml-auto" navbar>
-          <NavItem>
+          {/* <NavItem>
             <NavLink tag={Link} to={"/page-1"}>
               page 1
             </NavLink>
@@ -43,10 +43,10 @@ const Topbar = ({ toggleSidebar }) => {
             <NavLink tag={Link} to={"/page-3"}>
               page 3
             </NavLink>
-          </NavItem>
+          </NavItem> */}
           <NavItem>
-            <NavLink tag={Link} to={"/page-4"}>
-              page 4
+            <NavLink tag={Link} to={"/logout"}>
+              Salir
             </NavLink>
           </NavItem>
         </Nav>
