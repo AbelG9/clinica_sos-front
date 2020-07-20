@@ -22,11 +22,12 @@ import withReactContent from "sweetalert2-react-content";
 import ToggleSwitch from "../components/ToggleSwitch";
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import Loader from '../components/Loader';
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 const MySwal = withReactContent(Swal);
 
 const Home = () => {
+  let history = useHistory();
   const [loading, setLoading] = useState(false);
   const [dataDni, setDataDni] = useState("");
   const [page, setPage] = useState(0);
@@ -385,6 +386,10 @@ const Home = () => {
     }
   };
 
+  const handleLogin = () => {
+    history.push("/login");
+  }
+
   switch (page) {
     case 0:
       return (
@@ -398,6 +403,9 @@ const Home = () => {
             }}
           >
             <div className="container h-100 d-flex flex-column justify-content-center align-items-end">
+              <div className="align-self-start">
+                <button className="btn btn-lg btn-secondary" onClick={handleLogin}>Ver mi perfil</button>
+              </div>
               {
                 loading ? <Loader /> 
                 : 

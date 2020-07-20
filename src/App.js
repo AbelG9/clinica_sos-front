@@ -7,6 +7,7 @@ import {
 import Home from './pages/Home'
 import NoFound from "./pages/404";
 import Mainpatient from "./pages/MainPaciente";
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/paciente" component={Mainpatient} />
+          <Route path="/login" component={Login} />
           <Route exact component={NoFound} />
         </Switch>
       </Router>
