@@ -3,6 +3,7 @@ import { Label, Input, Button } from "reactstrap";
 import {Redirect, useHistory} from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import FullCalendarDiv from "./Fullcalendar";
 
 const MySwal = withReactContent(Swal);
 
@@ -120,7 +121,9 @@ const Createcita = () => {
                         </div>
                     </div>
                     <div className="form-row">
-                        Calendar
+                      <div className="form-group col-md-12">
+                        <FullCalendarDiv />
+                      </div>
                     </div>
                     <div className="modal-footer">
                       <Button 
