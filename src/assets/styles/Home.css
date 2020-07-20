@@ -17,15 +17,22 @@
 }
 
 .doctor-svg{
-    position: absolute;
-    right: 15rem;
-    top: 10rem;
+    position: fixed;
+    right: 10%;
+    top: 35%;
 }
 
 .btnsalir-pos{
     width: 90px;
     position: fixed;
     right: 10%;
+    bottom: 10%;
+}
+
+.btnperfil-pos{
+    width: 100px;
+    position: fixed;
+    right: 25%;
     bottom: 10%;
 }
 
@@ -69,6 +76,13 @@
         display: none;
     }
 
+    .btnperfil-pos{
+        width: 100px;
+        position: fixed;
+        right: 10%;
+        bottom: 20%;
+    }
+
     .background-question {
         background-size: 75% 50%;
     }
@@ -98,6 +112,13 @@
 
     .doctor-svg{
         display: none;
+    }
+
+    .btnperfil-pos{
+        width: 100px;
+        position: fixed;
+        right: 10%;
+        bottom: 20%;
     }
 
     .background-question {
@@ -133,6 +154,13 @@
         display: none;
     }
 
+    .btnperfil-pos{
+        width: 100px;
+        position: fixed;
+        right: 10%;
+        bottom: 20%;
+    }
+
     .background-question {
         background-size: 75% 70%;
     }
@@ -159,13 +187,20 @@
     }
 
     .doctor-svg{
-        position: absolute;
-        right: 4rem;
-        top: 10rem;
+        position: fixed;
+        right: 10%;
+        top: 40%;
     }
 
     .doctor-svg img{
         width: 150px;
+    }
+
+    .btnperfil-pos{
+        width: 100px;
+        position: fixed;
+        right: 25%;
+        bottom: 10%;
     }
 
     .background-question {
@@ -194,13 +229,20 @@
     }
 
     .doctor-svg{
-        position: absolute;
-        right: 12rem;
-        top: 10rem;
+        position: fixed;
+        right: 10%;
+        top: 35%;
     }
 
     .doctor-svg img{
         width: 200px;
+    }
+
+    .btnperfil-pos{
+        width: 100px;
+        position: fixed;
+        right: 25%;
+        bottom: 10%;
     }
 
     .background-question {
@@ -229,15 +271,22 @@
     }
 
     .doctor-svg{
-        position: absolute;
-        right: 15rem;
-        top: 13rem;
+        position: fixed;
+        right: 10%;
+        top: 35%;
     }
 
     .doctor-svg img{
         width: 200px;
     }
     
+    .btnperfil-pos{
+        width: 100px;
+        position: fixed;
+        right: 20%;
+        bottom: 10%;
+    }
+
 }
 @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 

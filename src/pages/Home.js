@@ -22,6 +22,7 @@ import withReactContent from "sweetalert2-react-content";
 import ToggleSwitch from "../components/ToggleSwitch";
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import Loader from '../components/Loader';
+import { Redirect } from "react-router-dom";
 
 const MySwal = withReactContent(Swal);
 
@@ -76,9 +77,27 @@ const Home = () => {
               setLoading(false);
             }      
         } else {
-          setLoading(false);
-          setPage(2);
+          MySwal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'DNI no registrado! Desea registrarse?',
+            showCancelButton: true,
+            confirmButtonColor: '#5bc0de',
+            confirmButtonText: 'Si, regístrame!',
+            cancelButtonColor: '#d9534f',
+            cancelButtonText: 'No, cancelar',
+            allowEscapeKey: false,
+            allowOutsideClick: false
+            }).then((result) => {
+              if (result.value) {
+                setLoading(false);
+                setPage(2);
+              } else if (result.dismiss === Swal.DismissReason.cancel) {
+                setLoading(false);
+              }
+            })
         }
+        
     } catch (error) {
       setLoading(false);
       console.error(error);
@@ -329,8 +348,18 @@ const Home = () => {
           timetriaje = <div><h1 className="text-black text-right">El triaje ha terminado</h1></div>;
         }
         else if (param===5) {
-          timetriaje = <div><h2 className="text-black text-right">Usted ya realizó su triaje</h2>
-          <h2 className="text-black text-right">hace {triajedays} días</h2></div>;
+          if (triajedays===0) {
+            timetriaje = <div><h2 className="text-black text-right">Usted ya realizó su triaje</h2>
+            <h2 className="text-black text-right">el día de hoy</h2></div>;
+          }
+          else if (triajedays===1){
+            timetriaje = <div><h2 className="text-black text-right">Usted ya realizó su triaje</h2>
+            <h2 className="text-black text-right">el día de ayer</h2></div>;
+          }
+          else{
+            timetriaje = <div><h2 className="text-black text-right">Usted ya realizó su triaje</h2>
+            <h2 className="text-black text-right">hace {triajedays} días</h2></div>;
+          }
         }
         return(
           <FormGroup tag="fieldset">
@@ -346,7 +375,8 @@ const Home = () => {
                     src={DniCard}
                     alt="Fairdent"
                   />
-                  <br />
+                  <br /><br />
+                  <Button color="info" className="btn-lg btnperfil-pos" onClick={() => setPage(10)} >Mi Perfil</Button>
                   <Button color="info" className="btn-lg btnsalir-pos" href="/">Salir</Button>
                 </div>
             </div>
@@ -436,6 +466,10 @@ const Home = () => {
               dataDni={dataDni}
             />
           );
+    case 10:
+        return (
+          <Redirect to ="/paciente" />
+        );
     default:
       break;
   }
