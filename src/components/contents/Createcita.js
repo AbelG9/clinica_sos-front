@@ -3,20 +3,32 @@ import { Label, Input, Button } from "reactstrap";
 import {Redirect, useHistory} from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import FullCalendarDiv from "./Fullcalendar";
+import url from "../../config";
+import Axios from "axios";
+import Loader from "../../components/Loader";
 
 const MySwal = withReactContent(Swal);
 
 const Createcita = () => {
     let history = useHistory();
     const [disabled, setDisabled] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [datoscita, setDatoscita] = useState(
         {
             fecha: '',
-            hora_inicio: '',
-            hora_fin: '',
+            hora: '',
             motivo: ''
         }
     );
+
+    const [datoscitaSave, setDatoscitaSave] = useState(
+      {
+          fech_inicial: '',
+          fech_final: '',
+          titulo: datoscita.motivo
+      }
+  );
 
     const handleChange = (e) => {
         setDatoscita(
@@ -34,7 +46,8 @@ const Createcita = () => {
 
     const ComprobarCampos = () => {
         if (
-            datoscita.fecha=== ""
+            datoscita.fecha=== "" ||
+            datoscita.hora=== ""
         ) {
           MySwal.fire({
             icon: "warning",
@@ -52,21 +65,43 @@ const Createcita = () => {
                     });
                 }
                 else {
-                    //savePatient();
+                    saveCita();
                 }
             }
         };
 
+        const saveCita = async () => {
+            setLoading(true);
+            let rescita = await Axios.post(`${url}api/saveCitaOnline`, { datoscitaSave });
+            let respq = await rescita.data;
+            if (respq > 0) {
+              setLoading(false);
+              MySwal.fire({
+                  icon: "success",
+                  title: "Exito!",
+                  text: "Datos de cita guardados exitosamente",
+              });
+              //Redirect to = "/paciente/listacitas"
+          } else {
+            setLoading(false);
+              MySwal.fire({
+                  icon: "warning",
+                  title: "Error!",
+                  text: "No se pudo guardar!",
+              })
+          }
+        };
+
     return(
-        <div className="container-flex custom-font">
+        <div className="container-flex custom-font" className="overflowdiv">
           <div className="row justify-content-md-center">
-            <div className="col-lg-6 col-md-10 col-sm-12">
+            <div className="col-xl-8 col-lg-10 col-md-12 col-sm-12">
               <div className="card text-center shadow">
                 <div className="card-body custom-colors">
                   <form onSubmit={handleSubmit} className="text-left" id="form_cita">
                     <div className="form-row">
-                        <div className="form-group col-md-4">
-                            <Label for="cita_fecha">Fecha</Label>
+                        <div className="form-group col-6 col-md-2 col-lg-2">
+                            <Label for="cita_fecha" className="labels-calendar">Fecha</Label>
                             <Input
                             type="text"
                             className="form-control"
@@ -78,36 +113,21 @@ const Createcita = () => {
                             autoComplete="off"
                             />
                         </div>
-                        <div className="form-group col-md-4">
-                            <Label for="cita_hora_inicio">Hora Inicio</Label>
+                        <div className="form-group col-6 col-md-2 col-lg-2">
+                            <Label for="cita_hora" className="labels-calendar">Hora</Label>
                             <Input
                             type="text"
                             className="form-control"
-                            id="cita_hora_inicio"
-                            name="hora_inicio"
-                            value={datoscita.hora_inicio}
+                            id="cita_hora"
+                            name="hora"
+                            value={datoscita.hora}
                             onChange={handleChange}
                             disabled={disabled}
                             autoComplete="off"
                             />
                         </div>
-                        <div className="form-group col-md-4">
-                            <Label for="cita_hora_fin">Hora Fin</Label>
-                            <Input
-                            type="text"
-                            className="form-control"
-                            id="cita_hora_fin"
-                            name="hora_fin"
-                            value={datoscita.hora_fin}
-                            onChange={handleChange}
-                            disabled={disabled}
-                            autoComplete="off"
-                            />
-                        </div>
-                    </div>
-                    <div className="form-row">
-                        <div className="form-group col-md-12">
-                            <Label for="cita_fecha">Motivo</Label>
+                        <div className="form-group col-12 col-md-8 col-lg-8">
+                            <Label for="cita_motivo" className="labels-calendar">Motivo</Label>
                             <Input
                             type="text"
                             className="form-control"
@@ -120,7 +140,14 @@ const Createcita = () => {
                         </div>
                     </div>
                     <div className="form-row">
-                        Calendar
+                      <div className="form-group col-md-12 text-center">
+                        <FullCalendarDiv 
+                          datoscita={datoscita}
+                          setDatoscita={setDatoscita}
+                          datoscitaSave={datoscitaSave}
+                          setDatoscitaSave={setDatoscitaSave}
+                        />
+                      </div>
                     </div>
                     <div className="modal-footer">
                       <Button 
@@ -129,11 +156,12 @@ const Createcita = () => {
                         >
                         Guardar Cita
                       </Button>
-                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      {/* &nbsp;&nbsp;&nbsp;&nbsp;
                       <Button 
                         color="secondary">
+
                         Cancelar
-                      </Button>
+                      </Button> */}
                     </div>
                   </form>
                 </div>
