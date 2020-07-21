@@ -48,6 +48,8 @@ const Login = () => {
           pass: '',
           repass: '',
         });
+        localStorage.setItem('data', JSON.stringify(response.user));
+        localStorage.setItem('AuthStatus', true);
         history.push("/paciente");
       }
     } catch (e) {
