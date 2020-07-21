@@ -11,15 +11,20 @@ import interactionPlugin from '@fullcalendar/interaction';
 
 //import events from "./events";
 
-const FullCalendarDiv = ({datoscita, setDatoscita}) => {
+const FullCalendarDiv = ({datoscita, setDatoscita, datoscitaSave, setDatoscitaSave}) => {
     const handleDateClick = (arg) => {
         let date=arg.dateStr;
         let currentFecha=date.slice(0,10);
         let currentHora=date.slice(11,19);
+        let currentAll=currentFecha+" "+currentHora;
         setDatoscita({
             ...datoscita,
             fecha: currentFecha,
             hora: currentHora
+        })
+        setDatoscitaSave({
+            ...datoscitaSave,
+            fech_inicial: currentAll
         })
     }
 
