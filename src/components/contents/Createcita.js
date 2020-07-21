@@ -13,8 +13,7 @@ const Createcita = () => {
     const [datoscita, setDatoscita] = useState(
         {
             fecha: '',
-            hora_inicio: '',
-            hora_fin: '',
+            hora: '',
             motivo: ''
         }
     );
@@ -61,12 +60,12 @@ const Createcita = () => {
     return(
         <div className="container-flex custom-font">
           <div className="row justify-content-md-center">
-            <div className="col-lg-6 col-md-10 col-sm-12">
+            <div className="col-lg-8 col-md-10 col-sm-12">
               <div className="card text-center shadow">
                 <div className="card-body custom-colors">
                   <form onSubmit={handleSubmit} className="text-left" id="form_cita">
                     <div className="form-row">
-                        <div className="form-group col-md-4">
+                        <div className="form-group col-md-2">
                             <Label for="cita_fecha">Fecha</Label>
                             <Input
                             type="text"
@@ -79,36 +78,21 @@ const Createcita = () => {
                             autoComplete="off"
                             />
                         </div>
-                        <div className="form-group col-md-4">
-                            <Label for="cita_hora_inicio">Hora Inicio</Label>
+                        <div className="form-group col-md-2">
+                            <Label for="cita_hora">Hora</Label>
                             <Input
                             type="text"
                             className="form-control"
-                            id="cita_hora_inicio"
-                            name="hora_inicio"
-                            value={datoscita.hora_inicio}
+                            id="cita_hora"
+                            name="hora"
+                            value={datoscita.hora}
                             onChange={handleChange}
                             disabled={disabled}
                             autoComplete="off"
                             />
                         </div>
-                        <div className="form-group col-md-4">
-                            <Label for="cita_hora_fin">Hora Fin</Label>
-                            <Input
-                            type="text"
-                            className="form-control"
-                            id="cita_hora_fin"
-                            name="hora_fin"
-                            value={datoscita.hora_fin}
-                            onChange={handleChange}
-                            disabled={disabled}
-                            autoComplete="off"
-                            />
-                        </div>
-                    </div>
-                    <div className="form-row">
-                        <div className="form-group col-md-12">
-                            <Label for="cita_fecha">Motivo</Label>
+                        <div className="form-group col-md-8">
+                            <Label for="cita_motivo">Motivo</Label>
                             <Input
                             type="text"
                             className="form-control"
@@ -122,7 +106,10 @@ const Createcita = () => {
                     </div>
                     <div className="form-row">
                       <div className="form-group col-md-12">
-                        <FullCalendarDiv />
+                        <FullCalendarDiv 
+                          datoscita={datoscita}
+                          setDatoscita={setDatoscita}
+                        />
                       </div>
                     </div>
                     <div className="modal-footer">
@@ -132,11 +119,12 @@ const Createcita = () => {
                         >
                         Guardar Cita
                       </Button>
-                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      {/* &nbsp;&nbsp;&nbsp;&nbsp;
                       <Button 
                         color="secondary">
+
                         Cancelar
-                      </Button>
+                      </Button> */}
                     </div>
                   </form>
                 </div>
