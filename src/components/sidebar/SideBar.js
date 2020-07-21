@@ -12,34 +12,40 @@ import { Link } from "react-router-dom";
 import SubMenu from "./SubMenu";
 import Logo from '../../assets/img/logo.svg'
 
-const SideBar = ({ isOpen, toggle }) => (
-  <div className={classNames("sidebar", { "is-open": isOpen })}>
-    <div className="sidebar-header">
-      <img src={Logo} alt="Fairdent" className="logo-pos"/>
-      <span color="info" onClick={toggle} style={{ color: "#fff" }}>
-        &times;
-      </span>
+const SideBar = ({ isOpen, toggle }) => {
+  const dataStorage = JSON.parse(localStorage.getItem('data')) || '';
+
+  return (
+    <div className={classNames("sidebar", { "is-open": isOpen })}>
+      <div className="sidebar-header">
+        <Link to='/paciente/obtenercita'>
+          <img src={Logo} alt="Fairdent" className="logo-pos"/>
+        </Link>
+        <span color="info" onClick={toggle} style={{ color: "#fff" }}>
+          &times;
+        </span>
+      </div>
+      <div className="side-menu">
+        <Nav vertical className="list-unstyled pb-3">
+          <p>{dataStorage.email}</p>
+          <NavItem>
+            <NavLink tag={Link} to={"/paciente/perfil"}>
+              <FontAwesomeIcon icon={faUserCircle} className="mr-2" />
+              Perfil
+            </NavLink>
+          </NavItem>
+          <SubMenu title="Citas" icon={faCalendar} items={submenus[0]} />
+          <NavItem>
+            <NavLink tag={Link} to={"/paciente/triaje"}>
+              <FontAwesomeIcon icon={faThermometerFull} className="mr-2" />
+              Triaje
+            </NavLink>
+          </NavItem>
+        </Nav>
+      </div>
     </div>
-    <div className="side-menu">
-      <Nav vertical className="list-unstyled pb-3">
-        <p>Nombre paciente</p>
-        <NavItem>
-          <NavLink tag={Link} to={"/paciente/perfil"}>
-            <FontAwesomeIcon icon={faUserCircle} className="mr-2" />
-            Perfil
-          </NavLink>
-        </NavItem>
-        <SubMenu title="Citas" icon={faCalendar} items={submenus[0]} />
-        <NavItem>
-          <NavLink tag={Link} to={"/paciente/triaje"}>
-            <FontAwesomeIcon icon={faThermometerFull} className="mr-2" />
-            Triaje
-          </NavLink>
-        </NavItem>
-      </Nav>
-    </div>
-  </div>
-);
+  )
+};
 
 const submenus = [
   [
