@@ -26,7 +26,7 @@ const Createcita = () => {
       {
           fech_inicial: '',
           fech_final: '',
-          titulo: datoscita.motivo
+          titulo: ''
       }
   );
 
@@ -36,6 +36,12 @@ const Createcita = () => {
                 ...datoscita,
                 [e.target.name]: e.target.value,
             }
+        )
+        setDatoscitaSave(
+          {
+            ...datoscitaSave,
+              titulo: datoscita.motivo 
+          }
         )
     };
 
@@ -72,8 +78,10 @@ const Createcita = () => {
 
         const saveCita = async () => {
             setLoading(true);
-            let rescita = await Axios.post(`${url}api/saveCitaOnline`, { datoscitaSave });
+            console.log(datoscitaSave);
+            let rescita = await Axios.post(`${url}api/citas/saveCitaOnline`, { datoscitaSave });
             let respq = await rescita.data;
+            console.log(respq);
             if (respq > 0) {
               setLoading(false);
               MySwal.fire({
