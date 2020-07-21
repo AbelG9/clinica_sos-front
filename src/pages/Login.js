@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import '../assets/styles/Login.css';
 import IsoLogo from '../assets/img/isologo.svg';
-const Login = () => {
+import { useHistory } from "react-router-dom";
+import URL from '../config';
+import Axios from 'axios';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
+const Login = () => {
+  const MySwal = withReactContent(Swal)
+  let history = useHistory();
   const [credentials, setCredentials] = useState(
     {
       user: '',
@@ -19,8 +26,38 @@ const Login = () => {
     );
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      let res = await Axios.post(`${URL}api/paciente/login`, {credentials});
+      let response = await res.data;
+      console.log(response);
+      if (response.success) {
+        Swal.fire({
+          icon: 'success',
+        })
+        setCredentials({
+          dni: '',
+          name: '',
+          lastname: '',
+          address: '',
+          fechanac: '',
+          genre: 'male',
+          phone: '',
+          email: '',
+          pass: '',
+          repass: '',
+        });
+        history.push("/paciente");
+      }
+    } catch (e) {
+        console.log(e)
+    }
+  }
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    history.push("/register");
   }
 
   return (
@@ -60,24 +97,24 @@ const Login = () => {
                   placeholder="contraseña" 
                 />
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <div className="custom-control custom-checkbox">
                   <input type="checkbox" className="custom-control-input" id="customControlInline" />
                   <label className="custom-control-label" htmlFor="customControlInline">Recuerdame</label>
                 </div>
+              </div> */}
+              <div className="d-flex justify-content-center mt-3 login_container">
+                <button type="submit" name="button" className="btn login_btn">Iniciar sesión</button>
               </div>
-                <div className="d-flex justify-content-center mt-3 login_container">
-            <button type="submit" name="button" className="btn login_btn">Iniciar sesión</button>
-            </div>
             </form>
           </div>
       
           <div className="mt-4">
             <div className="d-flex justify-content-center links">
-              ¿Aun no tienes cuenta? <a href="#" className="ml-2">Registrate!</a>
+              <small>¿Aun no tienes cuenta? <a href="#" onClick={handleRegister} className="ml-2">Registrate!</a></small>
             </div>
             <div className="d-flex justify-content-center links">
-              <a href="#">¿Se olvidó la contraseña?</a>
+              <small><a href="#">¿Se olvidó la contraseña?</a></small>
             </div>
           </div>
         </div>

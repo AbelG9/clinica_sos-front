@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import NoFound from "./pages/404";
 import Mainpatient from "./pages/MainPaciente";
 import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/paciente" component={Mainpatient} />
           <Route path="/login" component={Login} />
+          <Route path="/register" component={SignUp} />
           <Route exact component={NoFound} />
         </Switch>
       </Router>
