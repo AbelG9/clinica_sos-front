@@ -11,7 +11,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 
 //import events from "./events";
 
-const FullCalendarDiv = ({datoscita, setDatoscita, datoscitaSave, setDatoscitaSave}) => {
+const FullCalendarDiv = ({datoscita, setDatoscita, handleEvents}) => {
     const handleDateClick = (arg) => {
         let date=arg.dateStr;
         let currentFecha=date.slice(0,10);
@@ -20,11 +20,8 @@ const FullCalendarDiv = ({datoscita, setDatoscita, datoscitaSave, setDatoscitaSa
         setDatoscita({
             ...datoscita,
             fecha: currentFecha,
-            hora: currentHora
-        })
-        setDatoscitaSave({
-            ...datoscitaSave,
-            fech_inicial: currentAll
+            hora: currentHora,
+            hora_inicial: currentAll
         })
     }
 
@@ -75,6 +72,7 @@ const FullCalendarDiv = ({datoscita, setDatoscita, datoscitaSave, setDatoscitaSa
             hiddenDays={[0]}
             windowResize={handlewindowresize}
             aspectRatio={[1.99]}
+            events={{handleEvents}}
         />
         </div>
     );

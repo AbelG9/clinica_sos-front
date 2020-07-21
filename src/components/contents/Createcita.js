@@ -7,6 +7,7 @@ import FullCalendarDiv from "./Fullcalendar";
 import url from "../../config";
 import Axios from "axios";
 import Loader from "../../components/Loader";
+import { CalendarApi } from '@fullcalendar/react';
 
 const MySwal = withReactContent(Swal);
 
@@ -18,36 +19,31 @@ const Createcita = () => {
         {
             fecha: '',
             hora: '',
-            motivo: ''
+            motivo: '',
+            hora_inicial: ''
         }
     );
-
-    const [datoscitaSave, setDatoscitaSave] = useState(
-      {
-          fech_inicial: '',
-          fech_final: '',
-          titulo: ''
-      }
-  );
 
     const handleChange = (e) => {
         setDatoscita(
             {
                 ...datoscita,
-                [e.target.name]: e.target.value,
+                [e.target.name]: e.target.value
             }
-        )
-        setDatoscitaSave(
-          {
-            ...datoscitaSave,
-              titulo: datoscita.motivo 
-          }
         )
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         ComprobarCampos();
+    }
+
+    const handleEvents = (e) => {
+      // let CalendarApi;
+      //     CalendarApi.addEvent({
+      //       title: 'hola',
+      //       start: '2020-07-21 18:00:00'
+      //     });
     }
 
     const ComprobarCampos = () => {
@@ -78,8 +74,8 @@ const Createcita = () => {
 
         const saveCita = async () => {
             setLoading(true);
-            console.log(datoscitaSave);
-            let rescita = await Axios.post(`${url}api/citas/saveCitaOnline`, { datoscitaSave });
+            console.log(datoscita);
+            let rescita = await Axios.post(`${url}api/citas/saveCitaOnline`, { datoscita });
             let respq = await rescita.data;
             console.log(respq);
             if (respq > 0) {
@@ -152,8 +148,7 @@ const Createcita = () => {
                         <FullCalendarDiv 
                           datoscita={datoscita}
                           setDatoscita={setDatoscita}
-                          datoscitaSave={datoscitaSave}
-                          setDatoscitaSave={setDatoscitaSave}
+                          handleEvents={handleEvents}
                         />
                       </div>
                     </div>
