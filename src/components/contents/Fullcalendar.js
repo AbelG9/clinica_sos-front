@@ -42,7 +42,7 @@ const FullCalendarDiv = ({datoscita, setDatoscita}) => {
         		right: 'dayGridMonth,timeGridWeek,timeGridDay'
       		}}
             dateClick={handleDateClick}
-            selectable={true}
+            selectable={false}
             editable
             slotDuration={"00:15"}
             allDaySlot={false}
@@ -69,6 +69,7 @@ const FullCalendarDiv = ({datoscita, setDatoscita}) => {
             // }}
             hiddenDays={[0]}
             windowResize={handlewindowresize}
+            aspectRatio={[1.99]}
         />
         </div>
     );

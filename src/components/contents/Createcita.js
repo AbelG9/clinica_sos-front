@@ -34,7 +34,8 @@ const Createcita = () => {
 
     const ComprobarCampos = () => {
         if (
-            datoscita.fecha=== ""
+            datoscita.fecha=== "" ||
+            datoscita.hora=== ""
         ) {
           MySwal.fire({
             icon: "warning",
@@ -58,15 +59,15 @@ const Createcita = () => {
         };
 
     return(
-        <div className="container-flex custom-font">
+        <div className="container-flex custom-font" className="overflowdiv">
           <div className="row justify-content-md-center">
-            <div className="col-lg-8 col-md-10 col-sm-12">
+            <div className="col-xl-8 col-lg-10 col-md-12 col-sm-12">
               <div className="card text-center shadow">
                 <div className="card-body custom-colors">
                   <form onSubmit={handleSubmit} className="text-left" id="form_cita">
                     <div className="form-row">
                         <div className="form-group col-md-2">
-                            <Label for="cita_fecha">Fecha</Label>
+                            <Label for="cita_fecha" className="labels-calendar">Fecha</Label>
                             <Input
                             type="text"
                             className="form-control"
@@ -79,7 +80,7 @@ const Createcita = () => {
                             />
                         </div>
                         <div className="form-group col-md-2">
-                            <Label for="cita_hora">Hora</Label>
+                            <Label for="cita_hora" className="labels-calendar">Hora</Label>
                             <Input
                             type="text"
                             className="form-control"
@@ -92,7 +93,7 @@ const Createcita = () => {
                             />
                         </div>
                         <div className="form-group col-md-8">
-                            <Label for="cita_motivo">Motivo</Label>
+                            <Label for="cita_motivo" className="labels-calendar">Motivo</Label>
                             <Input
                             type="text"
                             className="form-control"
@@ -105,7 +106,7 @@ const Createcita = () => {
                         </div>
                     </div>
                     <div className="form-row">
-                      <div className="form-group col-md-12">
+                      <div className="form-group col-md-12 text-center">
                         <FullCalendarDiv 
                           datoscita={datoscita}
                           setDatoscita={setDatoscita}

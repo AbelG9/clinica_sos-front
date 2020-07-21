@@ -8,6 +8,19 @@
     background: #F6F4DA;
     font-size: medium;
   }
+
+  .overflowdiv {
+    width: 98%;
+    overflow-y: scroll;
+    height: 90%;
+    font-size: 85%;
+    overflow-x: hidden;
+  }
+
+  .labels-calendar {
+    font-size: medium;
+    color: #7F1769;
+  }
   
   @media only screen and (max-width: 500px) {
     body {
