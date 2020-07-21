@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import '../assets/styles/Login.css';
 import IsoLogo from '../assets/img/isologo.svg';
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import URL from '../config';
 import Axios from 'axios';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import {AuthContext} from '../contexts/AuthContext'
 
 const Login = () => {
+  const { dispatch } = useContext(AuthContext)
   const MySwal = withReactContent(Swal)
   let history = useHistory();
   const [credentials, setCredentials] = useState(
@@ -33,7 +35,7 @@ const Login = () => {
       let response = await res.data;
       console.log(response);
       if (response.success) {
-        Swal.fire({
+        MySwal.fire({
           icon: 'success',
         })
         setCredentials({
@@ -48,9 +50,8 @@ const Login = () => {
           pass: '',
           repass: '',
         });
-        localStorage.setItem('data', JSON.stringify(response.user));
-        localStorage.setItem('AuthStatus', true);
-        history.push("/paciente");
+        dispatch({ type: 'SIGNIN', payload: response.user})
+        history.push("/paciente/obtenercita");
       }
     } catch (e) {
         console.log(e)
@@ -62,67 +63,73 @@ const Login = () => {
     history.push("/register");
   }
 
-  return (
-    <div className="container" style={{ height: '100vh' }}>
-      <div className="d-flex justify-content-center h-100">
-        <div className="user_card">
-          <div className="d-flex justify-content-center">
-            <div className="brand_logo_container">
-              <img src={IsoLogo} className="brand_logo" alt="Fairdent" />
+  if (!localStorage.getItem('AuthStatus')) {
+    return (
+      <div className="container" style={{ height: '100vh' }}>
+        <div className="d-flex justify-content-center h-100">
+          <div className="user_card">
+            <div className="d-flex justify-content-center">
+              <div className="brand_logo_container">
+                <img src={IsoLogo} className="brand_logo" alt="Fairdent" />
+              </div>
             </div>
-          </div>
-          <div className="d-flex justify-content-center form_container">
-            <form onSubmit={handleSubmit}>
-              <div className="input-group mb-3">
-                <div className="input-group-append">
-                  <span className="input-group-text"><i className="fas fa-user"></i></span>
+            <div className="d-flex justify-content-center form_container">
+              <form onSubmit={handleSubmit}>
+                <div className="input-group mb-3">
+                  <div className="input-group-append">
+                    <span className="input-group-text"><i className="fas fa-user"></i></span>
+                  </div>
+                  <input 
+                    type="text" 
+                    name="user" 
+                    className="form-control input_user" 
+                    value={credentials.user}
+                    onChange={handleChange} 
+                    placeholder="usuario" 
+                  />
                 </div>
-                <input 
-                  type="text" 
-                  name="user" 
-                  className="form-control input_user" 
-                  value={credentials.user}
-                  onChange={handleChange} 
-                  placeholder="usuario" 
-                />
-              </div>
-              <div className="input-group mb-2">
-                <div className="input-group-append">
-                  <span className="input-group-text"><i className="fas fa-key"></i></span>
+                <div className="input-group mb-2">
+                  <div className="input-group-append">
+                    <span className="input-group-text"><i className="fas fa-key"></i></span>
+                  </div>
+                  <input 
+                    type="password" 
+                    name="pass" 
+                    className="form-control input_pass" 
+                    value={credentials.pass} 
+                    onChange={handleChange} 
+                    placeholder="contraseña" 
+                  />
                 </div>
-                <input 
-                  type="password" 
-                  name="pass" 
-                  className="form-control input_pass" 
-                  value={credentials.pass} 
-                  onChange={handleChange} 
-                  placeholder="contraseña" 
-                />
-              </div>
-              {/* <div className="form-group">
-                <div className="custom-control custom-checkbox">
-                  <input type="checkbox" className="custom-control-input" id="customControlInline" />
-                  <label className="custom-control-label" htmlFor="customControlInline">Recuerdame</label>
+                {/* <div className="form-group">
+                  <div className="custom-control custom-checkbox">
+                    <input type="checkbox" className="custom-control-input" id="customControlInline" />
+                    <label className="custom-control-label" htmlFor="customControlInline">Recuerdame</label>
+                  </div>
+                </div> */}
+                <div className="d-flex justify-content-center mt-3 login_container">
+                  <button type="submit" name="button" className="btn login_btn">Iniciar sesión</button>
                 </div>
-              </div> */}
-              <div className="d-flex justify-content-center mt-3 login_container">
-                <button type="submit" name="button" className="btn login_btn">Iniciar sesión</button>
-              </div>
-            </form>
-          </div>
-      
-          <div className="mt-4">
-            <div className="d-flex justify-content-center links">
-              <small>¿Aun no tienes cuenta? <a href="#" onClick={handleRegister} className="ml-2">Registrate!</a></small>
+              </form>
             </div>
-            <div className="d-flex justify-content-center links">
-              <small><a href="#">¿Se olvidó la contraseña?</a></small>
+        
+            <div className="mt-4">
+              <div className="d-flex justify-content-center links">
+                <small>¿Aun no tienes cuenta? <a href="#" onClick={handleRegister} className="ml-2">Registrate!</a></small>
+              </div>
+              <div className="d-flex justify-content-center links">
+                <small><a href="#">¿Se olvidó la contraseña?</a></small>
+              </div>
             </div>
           </div>
         </div>
       </div>
-	</div>
-  );
+    )
+  } else {
+    return (
+      <Redirect to="paciente/obtenercita" />
+    )
+  }
 }
 
 export default Login;

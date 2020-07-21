@@ -9,7 +9,7 @@ function PrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={props =>
-        state.AuthStatus ? (
+        localStorage.getItem('AuthStatus') ? (
           <Component {...props} />
         ) : (
           <Redirect

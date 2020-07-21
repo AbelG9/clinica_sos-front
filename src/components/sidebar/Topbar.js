@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -11,8 +11,10 @@ import {
   NavLink,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { AuthContext } from '../../contexts/AuthContext'
 
 const Topbar = ({ toggleSidebar }) => {
+  const { dispatch } = useContext(AuthContext)
   const [topbarIsOpen, setTopbarOpen] = useState(false);
   const toggleTopbar = () => setTopbarOpen(!topbarIsOpen);
 
@@ -29,23 +31,10 @@ const Topbar = ({ toggleSidebar }) => {
       <NavbarToggler onClick={toggleTopbar} />
       <Collapse isOpen={topbarIsOpen} navbar>
         <Nav className="ml-auto" navbar>
-          {/* <NavItem>
-            <NavLink tag={Link} to={"/page-1"}>
-              page 1
-            </NavLink>
-          </NavItem>
           <NavItem>
-            <NavLink tag={Link} to={"/page-2"}>
-              page 2
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink tag={Link} to={"/page-3"}>
-              page 3
-            </NavLink>
-          </NavItem> */}
-          <NavItem>
-            <NavLink tag={Link} to={"/logout"}>
+            <NavLink tag={Link} to={"/"} onClick={() => {
+              dispatch({ type: 'SIGNOUT'})
+            }}>
               Salir
             </NavLink>
           </NavItem>
