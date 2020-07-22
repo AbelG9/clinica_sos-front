@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../assets/styles/Login.css';
 import IsoLogo from '../assets/img/isologo.svg';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import URL from '../config';
 import Axios from 'axios';
 import Swal from 'sweetalert2'
@@ -65,7 +65,7 @@ const SignUp = () => {
           console.log(e)
       }
     } else {
-      Swal.fire({
+      MySwal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Llene el campo D.N.I. por favor!',
@@ -123,8 +123,7 @@ const SignUp = () => {
     }
   }
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const handleLogin = () => {
     setCredentials({
       dni: '',
       name: '',
@@ -138,7 +137,7 @@ const SignUp = () => {
       repass: '',
     });
     setStepSignUp(1);
-    history.push("/login");
+    // history.push("/login");
   }
 
   const renderSignUp = () => {
@@ -338,7 +337,7 @@ const SignUp = () => {
           </div>
           <div className="mt-4">
             <div className="d-flex justify-content-center links">
-              <small>¿Ya tienes una cuenta? <a href="#" onClick={handleLogin} className="ml-2">Logueate!</a></small>
+              <small>¿Ya tienes una cuenta? <Link to="/login" onClick={handleLogin} className="ml-2">Logueate!</Link></small>
             </div>
           </div>
         </div>

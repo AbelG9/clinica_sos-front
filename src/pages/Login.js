@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import '../assets/styles/Login.css';
 import IsoLogo from '../assets/img/isologo.svg';
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory, Redirect, Link } from "react-router-dom";
 import URL from '../config';
 import Axios from 'axios';
 import Swal from 'sweetalert2'
@@ -58,11 +58,6 @@ const Login = () => {
     }
   }
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    history.push("/register");
-  }
-
   if (!localStorage.getItem('AuthStatus')) {
     return (
       <div className="container" style={{ height: '100vh' }}>
@@ -115,10 +110,10 @@ const Login = () => {
         
             <div className="mt-4">
               <div className="d-flex justify-content-center links">
-                <small>¿Aun no tienes cuenta? <a href="#" onClick={handleRegister} className="ml-2">Registrate!</a></small>
+                <small>¿Aun no tienes cuenta? <Link to="/register" className="ml-2">Registrate!</Link></small>
               </div>
               <div className="d-flex justify-content-center links">
-                <small><a href="#">¿Se olvidó la contraseña?</a></small>
+                <small><Link to="/">¿Se olvidó la contraseña?</Link></small>
               </div>
             </div>
           </div>

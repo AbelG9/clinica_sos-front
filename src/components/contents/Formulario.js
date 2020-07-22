@@ -1,7 +1,7 @@
 import React from 'react';
 import { Label, Input, Button } from "reactstrap";
 
-const Formulario = ({ handleSubmit, handleChange, disabled, datospaciente}) => {
+const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
   return (
     <form onSubmit={handleSubmit} className="text-left" id="form_patient">
       <div className="form-row">
@@ -14,7 +14,7 @@ const Formulario = ({ handleSubmit, handleChange, disabled, datospaciente}) => {
             name="dni"
             value={datospaciente.dni}
             onChange={handleChange}
-            disabled={disabled}
+            disabled={false}
             required
             autoComplete="off"
           />
@@ -30,7 +30,7 @@ const Formulario = ({ handleSubmit, handleChange, disabled, datospaciente}) => {
             name="nombres"
             value={datospaciente.nombres}
             onChange={handleChange}
-            disabled={disabled}
+            disabled={false}
             required
             autoComplete="off"
           />
@@ -44,7 +44,7 @@ const Formulario = ({ handleSubmit, handleChange, disabled, datospaciente}) => {
             name="apellidos"
             value={datospaciente.apellidos}
             onChange={handleChange}
-            disabled={disabled}
+            disabled={false}
             required
             autoComplete="off"
           />

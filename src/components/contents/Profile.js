@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {Redirect, useHistory} from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Formulario from "./Formulario";
@@ -7,8 +6,6 @@ import Formulario from "./Formulario";
 const MySwal = withReactContent(Swal);
 
 const Profile = () => {
-    let history = useHistory();
-    const [disabled, setDisabled] = useState(false);
     const [datospaciente, setDatospaciente] = useState(
         {
             dni: '',
@@ -66,57 +63,6 @@ const Profile = () => {
         }
     };
 
-    // const checkPatient = async (dataDni) => {
-    //     try {
-    //       //setLoading(true);
-    //         let res = await Axios.post(`${url}api/getPatient`, {dataDni});
-    //         let response = await res.data;
-    //         if (response.length > 0) {
-    //           //poner datos en campos  
-    //         } else {
-    //           //se supone q se encuentran datos
-    //         }
-            
-    //     } catch (error) {
-    //       setLoading(false);
-    //       console.error(error);
-    //       MySwal.fire({
-    //         icon: 'error',
-    //         title: 'Oops...',
-    //         text: 'Ha ocurrido un error imprevisto!',
-    //     })
-    //     }
-    //   }
-//   const savePatient = async () => {
-//     setLoading(true);
-//     let params = {
-//       dnipac: dnipac,
-//       nompac: nompac,
-//       apelpac: apelpac,
-//       dirpac: dirpac,
-//       fnpac: fnpac,
-//       sexpac: sexpac,
-//       telpac: telpac,
-//       mailpac: mailpac,
-//     };
-//     let ressave = await Axios.post(`${url}api/savePatient`, { params });
-//     let resp = await ressave.data;
-//     if (resp > 0) {
-//       setLoading(false);
-//       MySwal.fire({
-//         icon: "success",
-//         title: "Exito!",
-//         text: "Datos de paciente guardados exitosamente",
-//       });
-//     } else {
-//       setLoading(false);
-//       MySwal.fire({
-//         icon: "warning",
-//         title: "Error!",
-//         text: "No se pudo guardar!",
-//       });
-//     }
-//   };
     return (
         <div className="d-flex justify-content-center">
           <div className="card" style={{ width: '50rem' }}>
@@ -125,7 +71,6 @@ const Profile = () => {
               datospaciente={datospaciente}
               handleSubmit={handleSubmit}
               handleChange={handleChange}
-              disabled={disabled}
             />
           </div>
           </div>
