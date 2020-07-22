@@ -9,11 +9,13 @@ import Axios from "axios";
 const MySwal = withReactContent(Swal);
 
 const Createcita = () => {
+  const dataStorage = JSON.parse(localStorage.getItem('data')).paciente_id_paciente || '';
   const [datoscita, setDatoscita] = useState({
     fecha: "",
     hora: "",
     motivo: "",
     hora_inicial: "",
+    paciente_id_paciente: dataStorage,
   });
 
   const handleChange = (e) => {
