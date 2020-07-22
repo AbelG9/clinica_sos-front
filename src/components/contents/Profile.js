@@ -64,15 +64,15 @@ const Profile = () => {
     };
 
     return (
-        <div className="d-flex justify-content-center">
-          <div className="card" style={{ width: '50rem' }}>
-          <div className="card-body">
-            <Formulario 
-              datospaciente={datospaciente}
-              handleSubmit={handleSubmit}
-              handleChange={handleChange}
-            />
-          </div>
+        <div className="m-3">
+          <div className="card">
+            <div className="card-body">
+                <Formulario 
+                    datospaciente={datospaciente}
+                    handleSubmit={handleSubmit}
+                    handleChange={handleChange}
+                />
+            </div>
           </div>
         </div>
     );  

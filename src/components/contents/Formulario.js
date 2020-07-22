@@ -122,12 +122,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
           color="info"
           type="submit"
           >
-          Guardar
-        </Button>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <Button 
-          color="secondary">
-          Cancelar
+          Actualizar
         </Button>
       </div>
     </form>
