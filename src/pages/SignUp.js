@@ -18,7 +18,7 @@ const SignUp = () => {
     lastname: '',
     address: '',
     fechanac: '',
-    genre: 'male',
+    genre: 'MASCULINO',
     phone: '',
     email: '',
     pass: '',
@@ -227,10 +227,10 @@ const SignUp = () => {
                 <input 
                   className="form-check-input" 
                   type="radio" 
-                  name="male" 
+                  name="MASCULINO" 
                   id="genre" 
-                  value="male" 
-                  checked={credentials.genre === 'male'}
+                  value="MASCULINO" 
+                  checked={credentials.genre === 'MASCULINO'}
                   onChange={handleChangeGenre}
                 />
                 <label className="form-check-label" htmlFor="exampleRadios1">
@@ -241,10 +241,10 @@ const SignUp = () => {
                 <input 
                   className="form-check-input" 
                   type="radio" 
-                  name="female" 
+                  name="FEMENINO" 
                   id="genre" 
-                  value="female" 
-                  checked={credentials.genre === 'female'}
+                  value="FEMENINO" 
+                  checked={credentials.genre === 'FEMENINO'}
                   onChange={handleChangeGenre}
                 />
                 <label className="form-check-label" htmlFor="exampleRadios2">

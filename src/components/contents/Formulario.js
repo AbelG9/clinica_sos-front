@@ -78,6 +78,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
         <div className="form-group col-md-6">
           <Label for="pac_sex">Sexo</Label>
           <select
+            disabled={true}
             className="form-control"
             id="pac_sex"
             name="sexo"
