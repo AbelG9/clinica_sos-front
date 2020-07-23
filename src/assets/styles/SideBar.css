@@ -7,9 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 
 body {
-  font-family: 'Patrick Hand', cursive;
-  background: #FFF;
-  font-size: 24px;
+  font-size: 1.2rem;
 }
 
 a,

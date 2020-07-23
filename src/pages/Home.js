@@ -377,6 +377,7 @@ const Home = () => {
                     alt="Fairdent"
                   />
                   <br /><br />
+                  <small className="text-muted">soporte: +51 930 337 714</small>
                   <Button color="info" className="btn-lg btnperfil-pos" onClick={() => setPage(10)} >Mi Perfil</Button>
                   <Button color="info" className="btn-lg btnsalir-pos" href="/">Salir</Button>
                 </div>
@@ -423,8 +424,9 @@ const Home = () => {
                   alt="Fairdent"
                 />
               </div>
-              <div className="mt-5 mr-5">
+              <div className="mt-5 mr-5 d-flex flex-column">
                 <img src={Logo} alt="Fairdent" width="200" />
+                <small className="text-muted">soporte: +51 930 337 714</small>
               </div>
             </div>
           </div>
