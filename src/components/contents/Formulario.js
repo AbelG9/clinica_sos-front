@@ -11,7 +11,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
             type="number"
             className="form-control"
             id="pac_document"
-            name="dni"
+            name="pac_document"
             value={datospaciente.pac_document}
             onChange={handleChange}
             disabled={true}
@@ -27,7 +27,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
             type="text"
             className="form-control"
             id="pac_name"
-            name="nombres"
+            name="pac_name"
             value={datospaciente.pac_name}
             onChange={handleChange}
             disabled={false}
@@ -41,7 +41,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
             type="text"
             className="form-control"
             id="pac_lastname"
-            name="apellidos"
+            name="pac_lastname"
             value={datospaciente.pac_lastname}
             onChange={handleChange}
             disabled={false}
@@ -55,7 +55,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
         <textarea
           className="form-control"
           id="pac_address"
-          name="direccion"
+          name="pac_address"
           value={datospaciente.pac_address}
           onChange={handleChange}
           required
@@ -66,6 +66,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
         <div className="form-group col-md-6">
           <Label for="pac_fech_nac">Fecha Nacimiento</Label>
           <Input
+            disabled={true}
             type="date"
             className="form-control"
             id="pac_fech_nac"
@@ -99,7 +100,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
             type="number"
             className="form-control"
             id="pac_phone"
-            name="telefono"
+            name="pac_phone"
             value={datospaciente.pac_phone}
             onChange={handleChange}
             required

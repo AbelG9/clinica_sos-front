@@ -49,11 +49,11 @@ const Profile = () => {
 
     const ComprobarCampos = () => {
     if (
-        datospaciente.dni=== "" ||
-        datospaciente.nombres=== "" ||
-        datospaciente.apellidos=== "" ||
-        datospaciente.direccion=== "" ||
-        datospaciente.telefono=== ""
+        datospaciente.pac_document=== "" ||
+        datospaciente.pac_name=== "" ||
+        datospaciente.pac_lastname=== "" ||
+        datospaciente.pac_address=== "" ||
+        datospaciente.pac_phone=== ""
     ) {
       MySwal.fire({
         icon: "warning",
@@ -62,8 +62,8 @@ const Profile = () => {
       });
         } else {
             if (
-                datospaciente.telefono.length>9 ||
-                datospaciente.telefono.length<9
+                datospaciente.pac_phone.length>9 ||
+                datospaciente.pac_phone.length<9
             ) {
                 MySwal.fire({
                 icon: "warning",
@@ -72,10 +72,29 @@ const Profile = () => {
                 });
             }
             else {
-                //savePatient();
+                savePatient();
             }
         }
-    };
+    }
+
+    const savePatient = async () => {
+        let res = await Axios.put(`${url}api/paciente/updateUserPatient`, { datospaciente });
+        let response = await res.data;
+        console.log(response);
+        if (response.success) {
+            MySwal.fire({
+                icon: "success",
+                title: "Actualizado!",
+                text: "Datos actualizados correctamente!",
+            });
+        } else {
+            MySwal.fire({
+                icon: "warning",
+                title: "Oops...",
+                text: "Algo fue mal!",
+            })
+        }
+    }
 
     return (
         <div className="m-3">
