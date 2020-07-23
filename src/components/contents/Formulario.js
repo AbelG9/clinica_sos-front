@@ -12,9 +12,9 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
             className="form-control"
             id="pac_document"
             name="dni"
-            value={datospaciente.dni}
+            value={datospaciente.pac_document}
             onChange={handleChange}
-            disabled={false}
+            disabled={true}
             required
             autoComplete="off"
           />
@@ -28,7 +28,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
             className="form-control"
             id="pac_name"
             name="nombres"
-            value={datospaciente.nombres}
+            value={datospaciente.pac_name}
             onChange={handleChange}
             disabled={false}
             required
@@ -42,7 +42,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
             className="form-control"
             id="pac_lastname"
             name="apellidos"
-            value={datospaciente.apellidos}
+            value={datospaciente.pac_lastname}
             onChange={handleChange}
             disabled={false}
             required
@@ -56,7 +56,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
           className="form-control"
           id="pac_address"
           name="direccion"
-          value={datospaciente.direccion}
+          value={datospaciente.pac_address}
           onChange={handleChange}
           required
           autoComplete="off"
@@ -70,7 +70,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
             className="form-control"
             id="pac_fech_nac"
             name="fechanac"
-            value={datospaciente.fechanac}
+            value={datospaciente.pac_fech_nac}
             onChange={handleChange}
             autoComplete="off"  
           />
@@ -83,6 +83,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
             name="sexo"
             required
             onChange={handleChange}
+            value={datospaciente.pac_sex}
           >
             <option value="">Seleccione...</option>
             <option value="MASCULINO">Masculino</option>
@@ -98,7 +99,7 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
             className="form-control"
             id="pac_phone"
             name="telefono"
-            value={datospaciente.telefono}
+            value={datospaciente.pac_phone}
             onChange={handleChange}
             required
             autoComplete="off"
@@ -111,8 +112,9 @@ const Formulario = ({ handleSubmit, handleChange, datospaciente}) => {
             className="form-control"
             id="pac_email"
             name="email"
-            value={datospaciente.email}
+            value={datospaciente.pac_email}
             onChange={handleChange}
+            disabled={true}
             autoComplete="off"
           />
         </div>
