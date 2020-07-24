@@ -1,18 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Label, Input, Button } from "reactstrap";
-import {Redirect, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import FullCalendarDiv from "./Fullcalendar";
 import url from "../../config";
 import Axios from "axios";
 import Loader from "../../components/Loader";
-import { CalendarApi } from '@fullcalendar/react';
 
 const MySwal = withReactContent(Swal);
 
 const Createcita = () => {
     let history = useHistory();
+    const [allevents, setAllevents] = useState([]);
+    const [usercita, setUsercita] = useState(33);
+    const [idpaciente, setIdpaciente] = useState(1015);
+    const [btndisabled, setBtndisabled] = useState(false);
     const [disabled, setDisabled] = useState(true);
     const [loading, setLoading] = useState(false);
     const [datoscita, setDatoscita] = useState(
@@ -20,9 +23,38 @@ const Createcita = () => {
             fecha: '',
             hora: '',
             motivo: '',
-            hora_inicial: ''
+            hora_inicial: '',
+            hora_fin: '',
         }
     );
+    
+    useEffect(() => {
+      const loadcitas = async () => {
+        setLoading(true);
+        try {
+          let rescita = await Axios.post(`${url}api/citas/getCitas`, {usercita});
+          let response = await rescita.data;
+          if (response.length > 0) {
+            setAllevents(response);
+          }
+          // let reslastcita = await Axios.post(`${url}api/citas/getlastcita`, {idpaciente});
+          // let responselastcita = await reslastcita.data;
+          // console.log("ultima cita: "+responselastcita.id_cita_medica);
+          // if (responselastcita.length>0) {
+          //   MySwal.fire({
+          //     icon: "warning",
+          //     title: "Tienes una cita pendiente!",
+          //     text: "Ya cuentas con una cita pendiente de atención!",
+          //   });
+          //   setBtndisabled(true);
+          // }
+          setLoading(false);
+        } catch (error) {
+          setLoading(false);
+        }
+      };
+      loadcitas();
+    }, [usercita]);
 
     const handleChange = (e) => {
         setDatoscita(
@@ -36,14 +68,6 @@ const Createcita = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         ComprobarCampos();
-    }
-
-    const handleEvents = (e) => {
-      // let CalendarApi;
-      //     CalendarApi.addEvent({
-      //       title: 'hola',
-      //       start: '2020-07-21 18:00:00'
-      //     });
     }
 
     const ComprobarCampos = () => {
@@ -67,37 +91,61 @@ const Createcita = () => {
                     });
                 }
                 else {
-                    saveCita();
+                  saveCitaConfirm();
                 }
             }
         };
 
-        const saveCita = async () => {
-            setLoading(true);
+        const saveCitaConfirm = () => {
+          setLoading(true);
+          MySwal.fire({
+            icon: 'warning',
+            title: 'Esta seguro?',
+            text: 'Esta seguro de crear una cita en este fecha y hora?',
+            showCancelButton: true,
+            confirmButtonColor: '#5bc0de',
+            confirmButtonText: 'Si, crea la cita!',
+            cancelButtonColor: '#d9534f',
+            cancelButtonText: 'No, cancelar',
+            allowEscapeKey: false,
+            allowOutsideClick: false
+            }).then((result) => {
+              if (result.value) {
+                saveCita();
+              } else if (result.dismiss === Swal.DismissReason.cancel) {
+                setLoading(false);
+              }
+            })
+          };
+
+          const saveCita = async () => {
             console.log(datoscita);
             let rescita = await Axios.post(`${url}api/citas/saveCitaOnline`, { datoscita });
             let respq = await rescita.data;
-            console.log(respq);
             if (respq > 0) {
-              setLoading(false);
               MySwal.fire({
                   icon: "success",
                   title: "Exito!",
                   text: "Datos de cita guardados exitosamente",
-              });
-              //Redirect to = "/paciente/listacitas"
+              }).then((result) => {
+                window.location.reload(false);
+                setLoading(false);
+              })
           } else {
-            setLoading(false);
               MySwal.fire({
                   icon: "warning",
                   title: "Error!",
                   text: "No se pudo guardar!",
+              }).then((result) => {
+                window.location.reload(false);
+                setLoading(false);
               })
           }
         };
 
     return(
-        <div className="container-flex custom-font" className="overflowdiv">
+      loading ? <Loader /> :
+        <div className="container-flex custom-font overflowdiv">
           <div className="row justify-content-md-center">
             <div className="col-xl-8 col-lg-10 col-md-12 col-sm-12">
               <div className="card text-center shadow">
@@ -148,7 +196,7 @@ const Createcita = () => {
                         <FullCalendarDiv 
                           datoscita={datoscita}
                           setDatoscita={setDatoscita}
-                          handleEvents={handleEvents}
+                          allevents={allevents}
                         />
                       </div>
                     </div>
@@ -156,6 +204,7 @@ const Createcita = () => {
                       <Button 
                         color="info"
                         type="submit"
+                        disabled={btndisabled}
                         >
                         Guardar Cita
                       </Button>
