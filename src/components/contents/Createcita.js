@@ -14,12 +14,13 @@ const Createcita = () => {
     let history = useHistory();
     const [allevents, setAllevents] = useState([]);
     const [usercita, setUsercita] = useState(33);
-    const [idpaciente, setIdpaciente] = useState(1015);
+    const [idpaciente, setIdpaciente] = useState(1009);
     const [btndisabled, setBtndisabled] = useState(false);
     const [disabled, setDisabled] = useState(true);
     const [loading, setLoading] = useState(false);
     const [datoscita, setDatoscita] = useState(
         {
+            idpaciente: idpaciente,
             fecha: '',
             hora: '',
             motivo: '',
@@ -37,18 +38,32 @@ const Createcita = () => {
           if (response.length > 0) {
             setAllevents(response);
           }
-          // let reslastcita = await Axios.post(`${url}api/citas/getlastcita`, {idpaciente});
-          // let responselastcita = await reslastcita.data;
-          // console.log("ultima cita: "+responselastcita.id_cita_medica);
-          // if (responselastcita.length>0) {
-          //   MySwal.fire({
-          //     icon: "warning",
-          //     title: "Tienes una cita pendiente!",
-          //     text: "Ya cuentas con una cita pendiente de atención!",
-          //   });
-          //   setBtndisabled(true);
-          // }
-          setLoading(false);
+          let reslastcita = await Axios.post(`${url}api/citas/getlastcita`, {idpaciente});
+          let responselastcita = await reslastcita.data;
+          console.log("ultima cita: "+responselastcita[0].id_cita_medica);
+          if (responselastcita.length>0) {
+            setBtndisabled(true);
+            setLoading(true);
+            MySwal.fire({
+              icon: "warning",
+              title: "Tienes una cita pendiente!",
+              text: "Ya cuentas con una cita pendiente de atención!",
+              showCancelButton: true,
+              confirmButtonColor: '#5bc0de',
+              confirmButtonText: 'Ver mi cita!',
+              cancelButtonColor: '#d9534f',
+              cancelButtonText: 'OK, dejalo ahí',
+              allowEscapeKey: false,
+              allowOutsideClick: false
+              }).then((result) => {
+                if (result.value) {
+                  history.push('/paciente/listacitas');
+                  setLoading(false);
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                  setLoading(false);
+                }
+              })
+          }
         } catch (error) {
           setLoading(false);
         }
@@ -101,7 +116,7 @@ const Createcita = () => {
           MySwal.fire({
             icon: 'warning',
             title: 'Esta seguro?',
-            text: 'Esta seguro de crear una cita en este fecha y hora?',
+            text: 'Esta seguro de crear una cita en la fecha y hora escogidas?',
             showCancelButton: true,
             confirmButtonColor: '#5bc0de',
             confirmButtonText: 'Si, crea la cita!',
@@ -187,6 +202,7 @@ const Createcita = () => {
                             name="motivo"
                             value={datoscita.motivo}
                             onChange={handleChange}
+                            disabled={btndisabled}
                             autoComplete="off"
                             />
                         </div>
@@ -197,6 +213,7 @@ const Createcita = () => {
                           datoscita={datoscita}
                           setDatoscita={setDatoscita}
                           allevents={allevents}
+                          btndisabled={btndisabled}
                         />
                       </div>
                     </div>

@@ -10,11 +10,12 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 const MySwal = withReactContent(Swal);
 
-const FullCalendarDiv = ({datoscita, setDatoscita, allevents}) => {
+const FullCalendarDiv = ({datoscita, setDatoscita, allevents, btndisabled}) => {
     const handleDateClick = (arg) => {   
         let fechainiciovalida=moment();
         let fechafinvalida=moment().add(1,'months');    
         let dateselected=moment(arg.date);
+        if (btndisabled==false){
         if ((dateselected<fechainiciovalida)||(dateselected>fechafinvalida)){
             MySwal.fire({
                 icon: "warning",
@@ -39,6 +40,7 @@ const FullCalendarDiv = ({datoscita, setDatoscita, allevents}) => {
                 hora_fin: currentAllfin,
             });
         }
+    }
     }
 
     const handleSelect = (arg) => {
