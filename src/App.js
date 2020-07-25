@@ -9,13 +9,14 @@ import NoFound from "./pages/404";
 import Mainpatient from "./pages/MainPaciente";
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import PrivateRoute from './PrivateRoute';
 
 function App() {
   return (
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/paciente" component={Mainpatient} />
+          <PrivateRoute path="/paciente" component={Mainpatient} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={SignUp} />
           <Route exact component={NoFound} />

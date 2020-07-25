@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendar,
@@ -8,13 +8,12 @@ import {
 import { NavItem, NavLink, Nav } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
-
 import SubMenu from "./SubMenu";
-import Logo from '../../assets/img/logo.svg'
+import Logo from '../../assets/img/logo.svg';
+import {AuthContext} from '../../contexts/AuthContext';
 
 const SideBar = ({ isOpen, toggle }) => {
-  const dataStorage = JSON.parse(localStorage.getItem('data')) || '';
-
+  const { state } = useContext(AuthContext);
   return (
     <div className={classNames("sidebar", { "is-open": isOpen })}>
       <div className="sidebar-header">
@@ -27,7 +26,7 @@ const SideBar = ({ isOpen, toggle }) => {
       </div>
       <div className="side-menu">
         <Nav vertical className="list-unstyled pb-3">
-          <p>{dataStorage.email}</p>
+          <p>{state.email}</p>
           <NavItem>
             <NavLink tag={Link} to={"/paciente/perfil"}>
               <FontAwesomeIcon icon={faUserCircle} className="mr-2" />

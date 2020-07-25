@@ -9,7 +9,7 @@ import withReactContent from 'sweetalert2-react-content'
 import {AuthContext} from '../contexts/AuthContext'
 
 const Login = () => {
-  const { dispatch } = useContext(AuthContext)
+  const { state, dispatch } = useContext(AuthContext)
   const MySwal = withReactContent(Swal)
   let history = useHistory();
   const [credentials, setCredentials] = useState(
@@ -58,7 +58,7 @@ const Login = () => {
     }
   }
 
-  if (!localStorage.getItem('AuthStatus')) {
+  if (!state.AuthStatus) {
     return (
       <div className="container" style={{ height: '100vh' }}>
         <div className="d-flex justify-content-center h-100">

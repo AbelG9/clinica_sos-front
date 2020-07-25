@@ -3,11 +3,11 @@ export const AuthReducer = (state, action) => {
       case 'SIGNIN':
         localStorage.setItem('data', JSON.stringify(action.payload));
         localStorage.setItem('AuthStatus', true);
-          return {...state, AuthStatus:true }
+          return {...state, data: JSON.parse(localStorage.getItem('data')), AuthStatus:true }
       case 'SIGNOUT':
         localStorage.removeItem('data');
         localStorage.removeItem('AuthStatus');
-          return { ...state, AuthStatus: false }
+          return { ...state, data: '', AuthStatus: false }
       default:
           return state;
   }

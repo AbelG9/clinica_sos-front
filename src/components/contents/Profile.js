@@ -1,14 +1,16 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Formulario from "./Formulario";
 import Axios from 'axios';
 import url from '../../config';
+import {AuthContext} from '../../contexts/AuthContext';
 
 const MySwal = withReactContent(Swal);
 
 const Profile = () => {
-    const dataStorage = JSON.parse(localStorage.getItem('data')).paciente_id_paciente || '';
+    const {state} = useContext(AuthContext);
+    const dataStorage = state.data.paciente_id_paciente;
     const [datospaciente, setDatospaciente] = useState(
         {
             id_paciente: dataStorage,

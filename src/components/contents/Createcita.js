@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { Label, Input, Button } from "reactstrap";
 import {useHistory} from "react-router-dom";
 import Swal from "sweetalert2";
@@ -7,11 +7,13 @@ import FullCalendarDiv from "./Fullcalendar";
 import url from "../../config";
 import Axios from "axios";
 import Loader from "../../components/Loader";
+import {AuthContext} from '../../contexts/AuthContext';
 
 const MySwal = withReactContent(Swal);
 
 const Createcita = () => {
-  const dataStorage = JSON.parse(localStorage.getItem('data')).paciente_id_paciente || '';
+  const { state } = useContext(AuthContext);
+  const dataStorage = state.data.paciente_id_paciente;
   const [datoscita, setDatoscita] = useState({
     fecha: "",
     hora: "",
@@ -26,45 +28,46 @@ const Createcita = () => {
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   
-  useEffect(() => {
-    const loadcitas = async () => {
-      setLoading(true);
-      try {
-        let rescita = await Axios.post(`${url}api/citas/getCitas`, {usercita});
-        let response = await rescita.data;
-        if (response.length > 0) {
-          setAllevents(response);
-        }
-        let reslastcita = await Axios.post(`${url}api/citas/getlastcita`, {dataStorage});
-        let responselastcita = await reslastcita.data;
-        console.log("ultima cita: "+responselastcita[0].id_cita_medica);
-        if (responselastcita.length>0) {
-          setBtndisabled(true);
-          setLoading(true);
-          MySwal.fire({
-            icon: "warning",
-            title: "Tienes una cita pendiente!",
-            text: "Ya cuentas con una cita pendiente de atención!",
-            showCancelButton: true,
-            confirmButtonColor: '#5bc0de',
-            confirmButtonText: 'Ver mi cita!',
-            cancelButtonColor: '#d9534f',
-            cancelButtonText: 'OK, dejalo ahí',
-            allowEscapeKey: false,
-            allowOutsideClick: false
-            }).then((result) => {
-              if (result.value) {
-                history.push('/paciente/listacitas');
-                setLoading(false);
-              } else if (result.dismiss === Swal.DismissReason.cancel) {
-                setLoading(false);
-              }
-            })
-        }
-      } catch (error) {
-        setLoading(false);
+  const loadcitas = async () => {
+    setLoading(true);
+    try {
+      let rescita = await Axios.post(`${url}api/citas/getCitas`, {usercita});
+      let response = await rescita.data;
+      if (response.length > 0) {
+        setAllevents(response);
       }
-    };
+      let reslastcita = await Axios.post(`${url}api/citas/getlastcita`, {dataStorage});
+      let responselastcita = await reslastcita.data;
+      console.log("ultima cita: "+responselastcita[0].id_cita_medica);
+      if (responselastcita.length>0) {
+        setBtndisabled(true);
+        setLoading(true);
+        MySwal.fire({
+          icon: "warning",
+          title: "Tienes una cita pendiente!",
+          text: "Ya cuentas con una cita pendiente de atención!",
+          showCancelButton: true,
+          confirmButtonColor: '#5bc0de',
+          confirmButtonText: 'Ver mi cita!',
+          cancelButtonColor: '#d9534f',
+          cancelButtonText: 'OK, dejalo ahí',
+          allowEscapeKey: false,
+          allowOutsideClick: false
+          }).then((result) => {
+            if (result.value) {
+              history.push('/paciente/listacitas');
+              setLoading(false);
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              setLoading(false);
+            }
+          })
+      }
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     loadcitas();
   }, [usercita]);
 
@@ -138,7 +141,7 @@ const Createcita = () => {
                   title: "Exito!",
                   text: "Datos de cita guardados exitosamente",
               }).then((result) => {
-                window.location.reload(false);
+                loadcitas();
                 setLoading(false);
               })
           } else {
@@ -147,7 +150,7 @@ const Createcita = () => {
                   title: "Error!",
                   text: "No se pudo guardar!",
               }).then((result) => {
-                window.location.reload(false);
+                loadcitas();
                 setLoading(false);
               })
           }
