@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 
-import FullCalendar, { preventDefault } from "@fullcalendar/react";
+import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from '@fullcalendar/interaction';
 import moment from "moment";
-
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import "../../assets/styles/Calendar.css";
 const MySwal = withReactContent(Swal);
 
 const FullCalendarDiv = ({datoscita, setDatoscita, allevents, btndisabled}) => {
@@ -15,7 +15,7 @@ const FullCalendarDiv = ({datoscita, setDatoscita, allevents, btndisabled}) => {
         let fechainiciovalida=moment();
         let fechafinvalida=moment().add(1,'months');    
         let dateselected=moment(arg.date);
-        if (btndisabled==false){
+        if (btndisabled===false){
         if ((dateselected<fechainiciovalida)||(dateselected>fechafinvalida)){
             MySwal.fire({
                 icon: "warning",
@@ -55,7 +55,7 @@ const FullCalendarDiv = ({datoscita, setDatoscita, allevents, btndisabled}) => {
     return (
         <div>
         <FullCalendar
-            defaultView="timeGridWeek"
+            //defaultView="timeGridWeek"
             plugins= {[ timeGridPlugin, dayGridPlugin, interactionPlugin ]}
             headerToolbar= {{
         		left: 'prev,next today',

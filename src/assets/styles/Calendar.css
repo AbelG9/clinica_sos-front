@@ -1,0 +1,33 @@
+.fc .fc-button-primary {
+    color: #fff;
+    color: var(--fc-button-text-color, #fff);
+    background-color: #1e2b37;
+    background-color: var(--fc-button-bg-color, #21B6A8);
+    border-color: #1a252f;
+    border-color: var(--fc-button-border-color, #21B6A8);
+  }
+  .fc .fc-button-primary:hover {
+    color: #fff;
+    color: var(--fc-button-text-color, #fff);
+    background-color: #1e2b37;
+    background-color: var(--fc-button-hover-bg-color, #7F1769);
+    border-color: #1a252f;
+    border-color: var(--fc-button-hover-border-color, #7F1769);
+  }
+  .fc-toolbar-title {
+    color: #7F1769;
+  }
+  .fc-scrollgrid-sync-inner {
+    background-color: #21b6a7c4;
+    color: #fff;
+    font-weight: normal;
+  }
+  .fc-daygrid-day-frame {
+    background-color: #fff;
+    color: #7F1769;
+  }
+  .fc-timegrid-slot-label {
+    background-color: #21b6a7c4;
+    color: #fff;
+    font-weight: normal;
+  }

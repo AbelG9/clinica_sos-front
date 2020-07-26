@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Label, Input, Button, Alert } from "reactstrap";
-import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import FullCalendarDiv from "./Fullcalendar";
@@ -21,11 +20,9 @@ const Createcita = () => {
     hora_inicial: "",
     paciente_id_paciente: dataStorage,
   });
-  let history = useHistory();
   const [allevents, setAllevents] = useState([]);
   const [usercita, setUsercita] = useState(19);
   const [btndisabled, setBtndisabled] = useState(false);
-  const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const loadcitas = async () => {
@@ -153,6 +150,7 @@ const Createcita = () => {
                 className="text-left"
                 id="form_cita"
               >
+                { btndisabled ? <div></div>:
                 <div className="form-row">
                   <div className="form-group col-6 col-md-2 col-lg-2">
                     <Label for="cita_fecha" className="labels-calendar">
@@ -165,7 +163,7 @@ const Createcita = () => {
                       name="fecha"
                       value={datoscita.fecha}
                       onChange={handleChange}
-                      disabled={disabled}
+                      disabled={true}
                       autoComplete="off"
                     />
                   </div>
@@ -180,7 +178,7 @@ const Createcita = () => {
                       name="hora"
                       value={datoscita.hora}
                       onChange={handleChange}
-                      disabled={disabled}
+                      disabled={true}
                       autoComplete="off"
                     />
                   </div>
@@ -200,6 +198,7 @@ const Createcita = () => {
                     />
                   </div>
                 </div>
+                }
                 <div className="form-row">
                   <div className="form-group col-md-12 text-center">
                     <FullCalendarDiv
