@@ -7,6 +7,7 @@ import url from "../../config";
 import Axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
 import LoarderCircle from "../../components/LoaderCircle";
+import "../../assets/styles/Calendar.css";
 
 const MySwal = withReactContent(Swal);
 
@@ -131,17 +132,16 @@ const Createcita = () => {
   return (
     <div className="container-flex custom-font overflowdiv">
       <div className="row justify-content-md-center">
-        <div className="col-xl-8 col-lg-10 col-md-12 col-sm-12">
+        <div className="col-xl-11 col-lg-11 col-md-12 col-sm-12">
           <div className="card text-center shadow">
             <div className="card-body">
               { btndisabled ?
-                <Alert color="warning">
+                <Alert color="warning" className="labels-calendar">
                   Ya cuentas con
-                  <a href="/paciente/listacitas" className="alert-link"> una cita pendiente </a> 
+                  <a href="/paciente/listacitas" className="alert-link "> una cita pendiente </a> 
                   de atención!
                 </Alert>
-              :
-              <div></div>
+              : <div></div>
               }
               {
                 loading ? <LoarderCircle /> :
@@ -199,7 +199,7 @@ const Createcita = () => {
                   </div>
                 </div>
                 }
-                <div className="form-row">
+                <div className="form-row calendar-media">
                   <div className="form-group col-md-12 text-center">
                     <FullCalendarDiv
                       datoscita={datoscita}

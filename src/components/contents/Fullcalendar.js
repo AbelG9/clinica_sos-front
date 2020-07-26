@@ -7,7 +7,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import moment from "moment";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import "../../assets/styles/Calendar.css";
+
 const MySwal = withReactContent(Swal);
 
 const FullCalendarDiv = ({datoscita, setDatoscita, allevents, btndisabled}) => {

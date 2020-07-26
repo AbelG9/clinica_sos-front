@@ -6,10 +6,14 @@
     margin-left: 0;
     height: 100vh;
     font-size: medium;
+    background-color: #eee;
+    background-image: url("../img/background.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 70%;
   }
 
   .overflowdiv {
-    width: 98%;
+    width:100%;
     overflow-y: scroll;
     height: 90%;
     font-size: 85%;
