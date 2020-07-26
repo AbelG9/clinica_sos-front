@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Label, Input, Button } from "reactstrap";
+import { Label, Input, Button, Alert } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -43,26 +43,7 @@ const Createcita = () => {
       console.log("ultima cita: " + responselastcita[0].id_cita_medica);
       if (responselastcita.length > 0) {
         setBtndisabled(true);
-        setLoading(true);
-        MySwal.fire({
-          icon: "warning",
-          title: "Tienes una cita pendiente!",
-          text: "Ya cuentas con una cita pendiente de atención!",
-          showCancelButton: true,
-          confirmButtonColor: "#5bc0de",
-          confirmButtonText: "Ver mi cita!",
-          cancelButtonColor: "#d9534f",
-          cancelButtonText: "OK, dejalo ahí",
-          allowEscapeKey: false,
-          allowOutsideClick: false,
-        }).then((result) => {
-          if (result.value) {
-            history.push("/paciente/listacitas");
-            setLoading(false);
-          } else if (result.dismiss === Swal.DismissReason.cancel) {
-            setLoading(false);
-          }
-        });
+        setLoading(false);
       }
     } catch (error) {
       setLoading(false);
@@ -106,7 +87,6 @@ const Createcita = () => {
   };
 
   const saveCitaConfirm = () => {
-    setLoading(true);
     MySwal.fire({
       icon: "warning",
       title: "Esta seguro?",
@@ -121,14 +101,11 @@ const Createcita = () => {
     }).then((result) => {
       if (result.value) {
         saveCita();
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        setLoading(false);
       }
     });
   };
 
   const saveCita = async () => {
-    console.log(datoscita);
     let rescita = await Axios.post(`${url}api/citas/saveCitaOnline`, {
       datoscita,
     });
@@ -160,6 +137,15 @@ const Createcita = () => {
         <div className="col-xl-8 col-lg-10 col-md-12 col-sm-12">
           <div className="card text-center shadow">
             <div className="card-body">
+              { btndisabled ?
+                <Alert color="warning">
+                  Ya cuentas con
+                  <a href="/paciente/listacitas" className="alert-link"> una cita pendiente </a> 
+                  de atención!
+                </Alert>
+              :
+              <div></div>
+              }
               {
                 loading ? <LoarderCircle /> :
                 <form
@@ -225,7 +211,10 @@ const Createcita = () => {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <Button color="info" type="submit">
+                  <Button 
+                    color="info" 
+                    type="submit"
+                    disabled={btndisabled}>
                     Guardar Cita
                   </Button>
                 </div>
