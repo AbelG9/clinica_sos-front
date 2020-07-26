@@ -20,7 +20,7 @@ const SideBar = ({ isOpen, toggle }) => {
         <Link to='/paciente/obtenercita'>
           <img src={Logo} alt="Fairdent" className="logo-pos"/>
         </Link>
-        <span color="info" onClick={toggle} style={{ color: "#fff" }}>
+        <span color="info" onClick={toggle} style={{ color: "#21B6A8"}}>
           &times;
         </span>
       </div>
