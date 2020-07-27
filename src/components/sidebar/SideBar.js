@@ -35,7 +35,7 @@ const SideBar = ({ isOpen, toggle }) => {
           </NavItem>
           <SubMenu title="Citas" icon={faCalendar} items={submenus[0]} toggledir={toggle}/>
           <NavItem>
-            <NavLink tag={Link} to={"/paciente/triaje"} onClick={toggle} >
+            <NavLink tag={Link} to={"/"} onClick={toggle} >
               <FontAwesomeIcon icon={faThermometerFull} className="mr-2" />
               Triaje
             </NavLink>

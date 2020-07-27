@@ -1,4 +1,5 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useContext, useEffect } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 import Background from "../assets/img/background.svg";
 import Doctor2 from "../assets/img/2-doctors.svg";
 import DoctorTesting from "../assets/img/doctor-testing.svg";
@@ -27,6 +28,8 @@ import { Redirect, useHistory } from "react-router-dom";
 const MySwal = withReactContent(Swal);
 
 const Home = () => {
+  const { state } = useContext(AuthContext);
+  const dniStorage = state.data.dni;
   let history = useHistory();
   const [loading, setLoading] = useState(false);
   const [dataDni, setDataDni] = useState("");
@@ -45,6 +48,13 @@ const Home = () => {
     option8: "",
   });
   const [triajedays, settriajedays] = useState(0);
+
+  useEffect(() => {
+    if (state.AuthStatus) {
+      console.log("logueado con dni: "+dniStorage);
+      checkPatient(dniStorage);
+    }
+  }, []);
 
   const handleStateOption = (e) => {
     setStateOption({
@@ -379,7 +389,9 @@ const Home = () => {
                   <br /><br />
                   <small className="text-muted">soporte: +51 930 337 714</small>
                   <Button color="info" className="btn-lg btnperfil-pos" onClick={() => setPage(10)} >Mi Perfil</Button>
+                  { state.AuthStatus ? <div></div>: 
                   <Button color="info" className="btn-lg btnsalir-pos" href="/">Salir</Button>
+                  }
                 </div>
             </div>
           </FormGroup>
@@ -478,7 +490,7 @@ const Home = () => {
           );
     case 10:
         return (
-          <Redirect to ="/paciente" />
+          <Redirect to ="/paciente/perfil" />
         );
     default:
       break;
