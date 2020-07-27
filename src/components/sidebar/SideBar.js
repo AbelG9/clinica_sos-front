@@ -28,14 +28,14 @@ const SideBar = ({ isOpen, toggle }) => {
         <Nav vertical className="list-unstyled pb-3">
           <p>{state.email}</p>
           <NavItem>
-            <NavLink tag={Link} to={"/paciente/perfil"}>
+            <NavLink tag={Link} to={"/paciente/perfil"} onClick={toggle} >
               <FontAwesomeIcon icon={faUserCircle} className="mr-2" />
               Perfil
             </NavLink>
           </NavItem>
-          <SubMenu title="Citas" icon={faCalendar} items={submenus[0]} />
+          <SubMenu title="Citas" icon={faCalendar} items={submenus[0]} toggledir={toggle}/>
           <NavItem>
-            <NavLink tag={Link} to={"/paciente/triaje"}>
+            <NavLink tag={Link} to={"/paciente/triaje"} onClick={toggle} >
               <FontAwesomeIcon icon={faThermometerFull} className="mr-2" />
               Triaje
             </NavLink>

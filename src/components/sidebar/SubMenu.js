@@ -8,6 +8,7 @@ const SubMenu = (props) => {
   const [collapsed, setCollapsed] = useState(true);
   const toggle = () => setCollapsed(!collapsed);
   const { icon, title, items } = props;
+  const {toggledir} = props;
 
   return (
     <div>
@@ -27,7 +28,7 @@ const SubMenu = (props) => {
       >
         {items.map((item, index) => (
           <NavItem key={index} className="pl-4">
-            <NavLink tag={Link} to={item.target}>
+            <NavLink tag={Link} to={item.target} onClick={toggledir}>
               {item.title}
             </NavLink>
           </NavItem>

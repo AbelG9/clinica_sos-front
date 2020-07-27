@@ -32,6 +32,9 @@ const Createcita = () => {
       let rescita = await Axios.post(`${url}api/citas/getCitas`, { usercita });
       let response = await rescita.data;
       if (response.length > 0) {
+        for (let i in response) {
+          response[i].title="ocupado"
+        }
         setAllevents(response);
       }
       let reslastcita = await Axios.post(`${url}api/citas/getlastcita`, {
