@@ -29,7 +29,7 @@ const MySwal = withReactContent(Swal);
 
 const Home = () => {
   const { state } = useContext(AuthContext);
-  const dniStorage = state.data.dni;
+  const idpacStorage = state.data.paciente_id_paciente;
   let history = useHistory();
   const [loading, setLoading] = useState(false);
   const [dataDni, setDataDni] = useState("");
@@ -51,8 +51,8 @@ const Home = () => {
 
   useEffect(() => {
     if (state.AuthStatus) {
-      console.log("logueado con dni: "+dniStorage);
-      checkPatient(dniStorage);
+      setLoading(true);
+      getDniPatient(idpacStorage);
     }
   }, []);
 
@@ -62,6 +62,19 @@ const Home = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const getDniPatient = async (idpacStorage) => {
+    try {
+      let resdni = await Axios.post(`${url}api/paciente/getdniUserPatient`, { idpacStorage });
+      let responsedni = await resdni.data;
+      if (responsedni.length > 0){
+        let dnipat=responsedni[0].pac_document;
+        checkPatient(dnipat);
+      }
+    }
+    catch (error) {
+    }
+  }
 
   const checkPatient = async (dataDni) => {
     try {
