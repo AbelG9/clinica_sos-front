@@ -3,6 +3,7 @@ import { Label, Input, Button } from "reactstrap";
 import url from "../../config";
 import Axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
+import TableCita from "./TablaCitas";
 
 const Listacitas = () => { 
     const { state } = useContext(AuthContext);
@@ -16,23 +17,11 @@ const Listacitas = () => {
         paciente_id_paciente: dataStorage,
       }
     )
-    // const [datoscita, setDatoscita] = useState(
-    //     {
-    //         idpaciente: '',
-    //         fecha: '',
-    //         hora: '',
-    //         motivo: '',
-    //         hora_inicial: '',
-    //         hora_fin: '',
-    //     }
-    // );
 
     const loadlastcitapatient = async () => {
-      //setLoading(true);
       try {
         let reslastcita = await Axios.post(`${url}api/citas/getlastcita`, { dataStorage });
         let responselastcita = await reslastcita.data;
-        console.log(responselastcita);
         let fechainicial=responselastcita[0].cme_fech_inicial;
         let currentFecha=fechainicial.slice(0,10);
         let currentHora=fechainicial.slice(11,19);
@@ -43,12 +32,10 @@ const Listacitas = () => {
             hora: currentHora,
             motivo: responselastcita[0].cme_titulo,
           });
-          //setAllevents(response);
+          
         }
-        
-          //setLoading(false);
+
       } catch (error) {
-        
       }
     };
   
@@ -75,7 +62,6 @@ const Listacitas = () => {
                             id="cita_fecha"
                             name="fecha"
                             value={datoslastcita.fecha}
-                            //onChange={handleChange}
                             disabled={true}
                             autoComplete="off"
                             />
@@ -88,7 +74,6 @@ const Listacitas = () => {
                             id="cita_hora"
                             name="hora"
                             value={datoslastcita.hora}
-                            //onChange={handleChange}
                             disabled={true}
                             autoComplete="off"
                             />
@@ -101,28 +86,16 @@ const Listacitas = () => {
                             id="cita_motivo"
                             name="motivo"
                             value={datoslastcita.motivo}
-                            //onChange={handleChange}
                             disabled={true}
                             autoComplete="off"
                             />
                         </div>
                     </div>
-                    {/* <div className="modal-footer">
-                      <Button 
-                        color="info"
-                        type="submit"
-                        disabled={btndisabled}
-                        >
-                        Guardar Cita
-                      </Button>
-                      {/* &nbsp;&nbsp;&nbsp;&nbsp;
-                      <Button 
-                        color="secondary">
-
-                        Cancelar
-                      </Button>
-                    </div> */}
                   </form>
+                  <br />
+                  <TableCita
+                    dataStorage={dataStorage}
+                  />
                 </div>
               </div>
             </div>
