@@ -17,13 +17,13 @@ const TableCita = ({dataStorage}) => {
   const [pagedata, setPagedata] = useState(
       {
           cantItems: 0,
-          pageSize: 10,
+          pageSize: 5,
           cantpages: 1,
           current_page: 1,
       }
   )
 
-  const loadcitapatient = async () => {
+  const loadcitapatient = async (page) => {
       setLoading(true);
     try {   
       let rescitapatient = await Axios.post(`${url}citas/getCitasByPatient?page=${page}`, { dataStorage, pagedata });
@@ -44,13 +44,13 @@ const TableCita = ({dataStorage}) => {
   };
 
   useEffect(() => {
-    loadcitapatient();
-  }, []);
+    loadcitapatient(page);
+  }, [page]);
 
   const renderCitas = (citaspatient, index) => {
       return (
           <tr key={index}>
-            <td>{index+1}</td>
+            <td>{((page-1)*5)+(index+1)}</td>
             <td>{citaspatient.cme_fech_inicial.slice(0,10)}</td>
             <td>{citaspatient.cme_fech_inicial.slice(11,19)}</td>
             <td>{citaspatient.cme_titulo}</td>
@@ -85,7 +85,6 @@ const TableCita = ({dataStorage}) => {
                 <Paginator
                     pagedata={pagedata}
                     setPagedata={setPagedata}
-                    loadcitapatient={loadcitapatient}
                     page={page}
                     setPage={setPage}
                 />

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import "../../assets/styles/Pagination.css"
 
-const Paginator = ({ pager, setPage, page, pagedata, setPagedata, loadcitapatient }) => {
+const Paginator = ({ setPage, page, pagedata }) => {
 
   const [number, setNumber] = useState([1,2,3,4,5,6,7,8,9,10]);
   const handleNumbers = (value) => {
@@ -30,7 +31,6 @@ const Paginator = ({ pager, setPage, page, pagedata, setPagedata, loadcitapatien
     } else {
       setPage(page + 1);
     };
-    loadcitapatient();
   }
 
   const handleBack = () => {
@@ -39,22 +39,18 @@ const Paginator = ({ pager, setPage, page, pagedata, setPagedata, loadcitapatien
     } else {
       setPage(page - 1);
     };
-    loadcitapatient();
   }
 
   const handlePage = (current) => {
     setPage(current);
-    loadcitapatient();
   }
 
   const handleFirst = () => {
     setPage(1);
-    loadcitapatient();
   }
 
   const handleLast = () => {
     setPage(pagedata.cantpages);
-    loadcitapatient();
   }
   
     return (

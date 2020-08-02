@@ -60,7 +60,7 @@ const Listacitas = () => {
                       CITA PENDIENTE
                     </h3>
                     <div className="form-row">
-                        <div className="form-group col-6 col-md-2 col-lg-2">
+                        <div className="form-group col-6 col-md-3 col-lg-3">
                             <Label for="cita_fecha" className="labels-calendar">Fecha</Label>
                             <Input
                             type="text"
@@ -72,7 +72,7 @@ const Listacitas = () => {
                             autoComplete="off"
                             />
                         </div>
-                        <div className="form-group col-6 col-md-2 col-lg-2">
+                        <div className="form-group col-6 col-md-3 col-lg-3">
                             <Label for="cita_hora" className="labels-calendar">Hora</Label>
                             <Input
                             type="text"
@@ -84,7 +84,7 @@ const Listacitas = () => {
                             autoComplete="off"
                             />
                         </div>
-                        <div className="form-group col-12 col-md-8 col-lg-8">
+                        <div className="form-group col-12 col-md-6 col-lg-6">
                             <Label for="cita_motivo" className="labels-calendar">Motivo</Label>
                             <Input
                             type="text"
