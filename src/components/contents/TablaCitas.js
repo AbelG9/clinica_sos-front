@@ -28,7 +28,6 @@ const TableCita = ({dataStorage}) => {
     try {   
       let rescitapatient = await Axios.post(`${url}citas/getCitasByPatient?page=${page}`, { dataStorage, pagedata });
       let responsecitas = await rescitapatient.data;
-      console.log(responsecitas);
       if (responsecitas.data.length > 0) {
         setCitaspatient(responsecitas.data);
         setPagedata({

@@ -4,10 +4,7 @@ import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 const Paginator = ({ pager, setPage, page, pagedata, setPagedata, loadcitapatient }) => {
 
   const [number, setNumber] = useState([1,2,3,4,5,6,7,8,9,10]);
-  console.log("page: "+page);
-  console.log("current: "+pagedata.current_page)
   const handleNumbers = (value) => {
-      console.log("handle");
     let pageNumbers = [];
     let listapage=Math.floor((pagedata.current_page-1)/10);
     let limitrest=pagedata.cantpages-(Math.floor((pagedata.cantpages-1)/10)*10);
@@ -60,7 +57,6 @@ const Paginator = ({ pager, setPage, page, pagedata, setPagedata, loadcitapatien
     loadcitapatient();
   }
   
-  //if(typeof paginator != 'undefined') {
     return (
       <Pagination aria-label="Page navigation example">
         <PaginationItem onClick={() => handleFirst()} >
@@ -88,9 +84,6 @@ const Paginator = ({ pager, setPage, page, pagedata, setPagedata, loadcitapatien
         </PaginationItem>
       </Pagination>
     );
-//   } else {
-//     return null;
-//   }
 }
 
 export default Paginator;
