@@ -4,8 +4,10 @@ import url from "../../config";
 import Axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
 import TableCita from "./TablaCitas";
+import LoarderCircle from "../LoaderCircle";
 
 const Listacitas = () => { 
+    const [loading, setLoading] = useState(false);
     const { state } = useContext(AuthContext);
     const dataStorage = state.data.paciente_id_paciente;
     const [datoslastcita, setDatoslastcita]= useState(
@@ -19,8 +21,9 @@ const Listacitas = () => {
     )
 
     const loadlastcitapatient = async () => {
+      setLoading(true);
       try {
-        let reslastcita = await Axios.post(`${url}api/citas/getlastcita`, { dataStorage });
+        let reslastcita = await Axios.post(`${url}citas/getlastcita`, { dataStorage });
         let responselastcita = await reslastcita.data;
         let fechainicial=responselastcita[0].cme_fech_inicial;
         let currentFecha=fechainicial.slice(0,10);
@@ -32,7 +35,7 @@ const Listacitas = () => {
             hora: currentHora,
             motivo: responselastcita[0].cme_titulo,
           });
-          
+          setLoading(false);
         }
 
       } catch (error) {
@@ -48,11 +51,14 @@ const Listacitas = () => {
           <div className="row justify-content-md-center">
             <div className="col-xl-8 col-lg-10 col-md-12 col-sm-12">
               <div className="card text-center shadow">
-                <div className="card-body custom-colors">
-                  <h3 className="labels-calendar">
-                    CITA PENDIENTE
-                  </h3>
+                <div className="card-body custom-colors"> 
+                <div>
+                  {
+                  loading ? <LoarderCircle /> :
                   <form className="text-left" id="form_cita">
+                    <h3 className="labels-calendar text-center">
+                      CITA PENDIENTE
+                    </h3>
                     <div className="form-row">
                         <div className="form-group col-6 col-md-2 col-lg-2">
                             <Label for="cita_fecha" className="labels-calendar">Fecha</Label>
@@ -92,10 +98,12 @@ const Listacitas = () => {
                         </div>
                     </div>
                   </form>
+                  }
                   <br />
                   <TableCita
                     dataStorage={dataStorage}
                   />
+                </div>
                 </div>
               </div>
             </div>

@@ -29,7 +29,7 @@ const Createcita = () => {
   const loadcitas = async () => {
     setLoading(true);
     try {
-      let rescita = await Axios.post(`${url}api/citas/getCitas`, { usercita });
+      let rescita = await Axios.post(`${url}citas/getCitas`, { usercita });
       let response = await rescita.data;
       if (response.length > 0) {
         for (let i in response) {
@@ -37,7 +37,7 @@ const Createcita = () => {
         }
         setAllevents(response);
       }
-      let reslastcita = await Axios.post(`${url}api/citas/getlastcita`, {
+      let reslastcita = await Axios.post(`${url}citas/getlastcita`, {
         dataStorage,
       });
       let responselastcita = await reslastcita.data;
@@ -53,7 +53,7 @@ const Createcita = () => {
 
   useEffect(() => {
     loadcitas();
-  }, [usercita]);
+  }, []);
 
   const handleChange = (e) => {
     setDatoscita({
@@ -107,7 +107,7 @@ const Createcita = () => {
   };
 
   const saveCita = async () => {
-    let rescita = await Axios.post(`${url}api/citas/saveCitaOnline`, {
+    let rescita = await Axios.post(`${url}citas/saveCitaOnline`, {
       datoscita,
     });
     let respq = await rescita.data;

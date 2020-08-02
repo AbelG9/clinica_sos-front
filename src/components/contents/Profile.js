@@ -30,7 +30,7 @@ const Profile = () => {
     }, []);
 
     const getDataPatient = async () => {
-        let res = await Axios.post(`${url}api/paciente/getdataUserPatient`, { datospaciente });
+        let res = await Axios.post(`${url}paciente/getdataUserPatient`, { datospaciente });
         let response = await res.data;
         setDatospaciente(response.datapatient[0]);
     }
@@ -80,7 +80,7 @@ const Profile = () => {
     }
 
     const savePatient = async () => {
-        let res = await Axios.put(`${url}api/paciente/updateUserPatient`, { datospaciente });
+        let res = await Axios.put(`${url}paciente/updateUserPatient`, { datospaciente });
         let response = await res.data;
         console.log(response);
         if (response.success) {

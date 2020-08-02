@@ -45,7 +45,7 @@ const SignUp = () => {
     e.preventDefault();
     if (credentials.dni.length === 8) {
       try {
-        let res = await Axios.post(`${URL}api/paciente/checkPatient`, {credentials});
+        let res = await Axios.post(`${URL}paciente/checkPatient`, {credentials});
         let response = await res.data;
         console.log(response);
         if (response.success) {
@@ -89,7 +89,7 @@ const SignUp = () => {
         });
       } else {
         try {
-          let res = await Axios.post(`${URL}api/paciente/register`, {credentials});
+          let res = await Axios.post(`${URL}paciente/register`, {credentials});
           let response = await res.data;
           console.log(response);
           Swal.fire({

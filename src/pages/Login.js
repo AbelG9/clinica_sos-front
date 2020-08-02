@@ -4,15 +4,12 @@ import IsoLogo from "../assets/img/isologo.svg";
 import { useHistory, Redirect, Link } from "react-router-dom";
 import URL from "../config";
 import Axios from "axios";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import { AuthContext } from "../contexts/AuthContext";
 import LoaderCircle from "../components/LoaderCircle";
 
 const Login = () => {
   const { state, dispatch } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const MySwal = withReactContent(Swal);
   let history = useHistory();
   const [credentials, setCredentials] = useState({
     user: "",
@@ -30,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      let res = await Axios.post(`${URL}api/paciente/login`, { credentials });
+      let res = await Axios.post(`${URL}paciente/login`, { credentials });
       let response = await res.data;
       console.log(response);
       if (response.success) {

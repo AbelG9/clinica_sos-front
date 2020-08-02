@@ -13,7 +13,6 @@ const MySwal = withReactContent(Swal);
 let datareniec = "";
 
 const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
-  //aqui recibo la variable set page
   const [loading, setLoading] = useState(false);
   const dnipac = dataDni;
   const [nompac, setnompac] = useState("");
@@ -111,7 +110,7 @@ const FormPacient = ({ dataDni, setPage, setStateOption, stateOption }) => {
       telpac: telpac,
       mailpac: mailpac,
     };
-    let ressave = await Axios.post(`${url}api/savePatient`, { params });
+    let ressave = await Axios.post(`${url}savePatient`, { params });
     let resp = await ressave.data;
     if (resp > 0) {
       setLoading(false);

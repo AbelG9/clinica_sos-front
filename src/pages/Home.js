@@ -65,7 +65,7 @@ const Home = () => {
 
   const getDniPatient = async (idpacStorage) => {
     try {
-      let resdni = await Axios.post(`${url}api/paciente/getdniUserPatient`, { idpacStorage });
+      let resdni = await Axios.post(`${url}paciente/getdniUserPatient`, { idpacStorage });
       let responsedni = await resdni.data;
       if (responsedni.length > 0){
         let dnipat=responsedni[0].pac_document;
@@ -79,11 +79,11 @@ const Home = () => {
   const checkPatient = async (dataDni) => {
     try {
       setLoading(true);
-        let res = await Axios.post(`${url}api/getPatient`, {dataDni});
+        let res = await Axios.post(`${url}getPatient`, {dataDni});
         let response = await res.data;
         if (response.length > 0) {
           let responseid = response[0].id_paciente;
-            let resdays = await Axios.post(`${url}api/getlasttriage`, {responseid});
+            let resdays = await Axios.post(`${url}getlasttriage`, {responseid});
             let responsedays = await resdays.data;
             settriajedays(responsedays);
             setLoading(false);
@@ -190,7 +190,7 @@ const Home = () => {
   const handleClickFin = async () => {
     if (stateOption.option7.length > 0 && stateOption.option8.length > 0) {
       setLoading(true);
-      let resq = await Axios.post(`${url}api/saveTriageHistory`, { stateOption });
+      let resq = await Axios.post(`${url}saveTriageHistory`, { stateOption });
       let respq = await resq.data;
       if (respq > 0) {
         setLoading(false);
